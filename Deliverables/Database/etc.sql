@@ -33,15 +33,30 @@ SELECT uuid_generate_v4();
 
 -- Create user table and relevant columns
 CREATE TABLE user(
-    user_id uuid DEFAULT uuid_generate_v4();
+    user_id uuid DEFAULT uuid_generate_v4(),
     user_fname character varying(127),
-    user_lname character varying(127),
+    user_lname character varying(127), NOT NULL
     user_email character varying(255) NOT NULL UNIQUE,
     user_password character varying(255), NOT NULL
     PRIMARY KEY(user_id)
 );
 
 -- Create vflashcard_set table with relevant columns
+-- Still need to add foreign keys
 CREATE TABLE vflashcard_set(
+    vfc_set_id uuid DEFAULT uuid_generate_v4(),
+    user_id uuid NOT NULL,
+    vfc_set_title character varying(255) NOT NULL,
+    PRIMARY KEY (vfc_set_id, user_id)
+);
 
-)
+
+-- Create vflashcard table
+-- Still need to add foreign keys
+CREATE TABLE vflashcard (
+    vfc_id uuid NOT NULL,
+    vfc_set_id uuid NOT NULL,
+    vfc_question character varying(255) NOT NULL,
+    vfc_answer character varying(255) NOT NULL,
+    PRIMARY KEY (vfc_id, vfc_set_id)
+);
