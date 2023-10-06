@@ -1,14 +1,22 @@
 const router = require("express").Router();
 const pool = require("../db");
-const bcrypt = require("bcrypt");       // password hashing function
 
-router.post("/register", async(req, res) => {
+router.post("/signup", async (req, res) => {
     try {
-        const {firstName, lastName, email, password } = req.body;
+        let temp = req.body;
+        // const { firstName, lastName, email, password } = req.body;
+        const { firstName, lastName, email, password } = temp;
+        console.log(temp);
+        const newLogin = await pool.query(
+            "INSERT INTO vfc_user (vfc_user_fname, vfc_user_lname, vfc_user_email, vfc_user_password) VALUES ($1, $2, $3, $4)",
+            [firstName, lastName, email, password]);
+     
+        res.json(req.body);
 
-        const vfcUser = await pool.query("SELECT * FROM users WHERE vfc_user_email = $1", [email]);
-    } catch(err) {
+    } catch (err) {
         console.error(err.message);
-        // res.status(500).send("500 - Error");
+        res.status(500).send("500 - Error");
     }
 });
+
+module.exports = router;
