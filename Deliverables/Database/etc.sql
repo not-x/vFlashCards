@@ -47,7 +47,7 @@ CREATE TABLE vflashcard_set(
     vfc_set_id uuid DEFAULT uuid_generate_v4(),
     vfc_user_id uuid NOT NULL,
     vfc_set_title character varying(255) NOT NULL,
-    PRIMARY KEY (vfc_set_id, vfc_user_id),
+    PRIMARY KEY (vfc_set_id),
     CONSTRAINT fk_vfc_user_id FOREIGN KEY(vfc_user_id) REFERENCES vfc_user(vfc_user_id)
 );
 
@@ -58,6 +58,9 @@ CREATE TABLE vflashcard (
     vfc_set_id uuid NOT NULL,
     vfc_question character varying(255) NOT NULL,
     vfc_answer character varying(255) NOT NULL,
-    PRIMARY KEY (vfc_id, vfc_set_id),
+    PRIMARY KEY (vfc_id),
     CONSTRAINT fk_vfc_set_id FOREIGN KEY(vfc_set_id) REFERENCES vflashcard_set(vfc_set_id)
 );
+
+-- Delete data from a single table
+DELETE FROM vfc_user WHERE vfc_last_name = 'Guy';
