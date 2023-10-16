@@ -64,3 +64,7 @@ CREATE TABLE vflashcard (
 
 -- Delete data from a single table
 DELETE FROM vfc_user WHERE vfc_last_name = 'Guy';
+
+-- Delete ALL data from vfc_user
+-- CASCADE is used due to foreign key references.
+TRUNCATE TABLE vfc_user CASCADE;
