@@ -68,3 +68,18 @@ DELETE FROM vfc_user WHERE vfc_last_name = 'Guy';
 -- Delete ALL data from vfc_user
 -- CASCADE is used due to foreign key references.
 TRUNCATE TABLE vfc_user CASCADE;
+
+-- INNER JOIN vfc_user and vflashcard_set via vfc_user_id on both tables
+SELECT * FROM vfc_user INNER JOIN vflashcard_set ON vfc_user.vfc_user_id = vflashcard_set.vfc_user_id;
+
+-- Add additional column to vflashcard_set table:
+-- vfc_set_view_access
+-- Column shows the view type, which can be either public or private
+ALTER TABLE vflashcard_set
+ADD COLUMN vfc_set_view_access view NOT NULL;
+
+--View all public viewable flashcard sets
+SELECT vfc_set_title FROM vflashcard_set WHERE vfc_set_view_access = 'public';
+
+-- Alter vfc_set_view_access so that the default value is 'private'
+ALTER TABLE vflashcard_set ALTER COLUMN vfc_set_view_access SET DEFAULT 'private';
