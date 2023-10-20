@@ -2,6 +2,7 @@ const router = require("express").Router();
 const pool = require("../db");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+const tokenGenerator = require("../tokenGenerator");
 
 router.post("/signup", async (req, res) => {
     try {
@@ -39,7 +40,7 @@ router.post("/login", async (req, res) => {
         // const lookupLogin = await pool.query("SELECT vfc_user_email FROM vfc_user WHERE vfc_user_email = $1 AND vfc_user_password = $2", [email, password]);
         // if (lookupLogin.rows.length === 0) throw "Invalid login credential";
 
-        const lookupLogin = await pool.query("SELECT vfc_user_email, vfc_user_password FROM vfc_user WHERE vfc_user_email = $1", [email]);
+        const lookupLogin = await pool.query("SELECT vfc_user_id, vfc_user_email, vfc_user_password FROM vfc_user WHERE vfc_user_email = $1", [email]);
         if (lookupLogin.rows.length === 0) throw "Invalid login credential";
 
         const pwHash = lookupLogin.rows[0].vfc_user_password;
@@ -48,6 +49,10 @@ router.post("/login", async (req, res) => {
         const validateLogin = await bcrypt.compare(password, pwHash);
         // console.log(validateLogin);
         if (!validateLogin) throw "Invalid login credential";
+
+        console.log("Token hash OK!");
+        console.log("vfc_user_id: " + lookupLogin.rows[0].vfc_user_id);
+        const token = tokenGenerator(lookupLogin.rows[0].vfc_user_id);
 
         console.log("200 - Login successful");
         res.status(200).send("200 - Login successful");
