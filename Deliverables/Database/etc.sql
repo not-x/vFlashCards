@@ -83,3 +83,6 @@ SELECT vfc_set_title FROM vflashcard_set WHERE vfc_set_view_access = 'public';
 
 -- Alter vfc_set_view_access so that the default value is 'private'
 ALTER TABLE vflashcard_set ALTER COLUMN vfc_set_view_access SET DEFAULT 'private';
+
+-- Shorten vflashcard_set to vfc_set
+ALTER TABLE vflashcard_set RENAME TO vfc_set;

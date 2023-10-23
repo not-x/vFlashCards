@@ -3,6 +3,7 @@ const pool = require("../db");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const tokenGenerator = require("../tokenGenerator");
+const auth = require('../middleware/auth');
 
 router.post("/signup", async (req, res) => {
     try {
@@ -77,5 +78,14 @@ router.post("/login", async (req, res) => {
         res.status(500).send("500 Error - " + error);
     }
 });
+
+router.post("/auth", auth, (req, res) => {
+    try {
+        res.json(true);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send(err);
+    }
+})
 
 module.exports = router;
