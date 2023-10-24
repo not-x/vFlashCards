@@ -3,7 +3,7 @@ const pool = require("../db");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const tokenGenerator = require("../tokenGenerator");
-const auth = require('../middleware/auth');
+const auth = require('../auth');
 
 router.post("/signup", async (req, res) => {
     try {

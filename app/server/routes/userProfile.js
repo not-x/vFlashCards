@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth');
+const auth = require('../auth');
 const db = require('../db');
 
 // Get public flashcard sets
