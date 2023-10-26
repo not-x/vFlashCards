@@ -3,12 +3,12 @@ const pool = require("../db");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const tokenGenerator = require("../tokenGenerator");
-const auth = require('../auth');
+const authentication = require('../auth');
 
 router.post("/signup", async (req, res) => {
     try {
         const { firstName, lastName, email, password } = req.body;
-        console.log(firstName);
+        // console.log(firstName);
         if (firstName === undefined || firstName.length === 0) console.log("Note - First name is missing but optional.");
         if (lastName === undefined) throw "Missing last name";
         if (email === undefined) throw "Missing email";
@@ -68,9 +68,10 @@ router.post("/login", async (req, res) => {
 
         const token = tokenGenerator(userID);
         
-        // console.log(`token: ${token}`);
-        // console.log("200 - Login successful");
+        console.log(`token: ${token}`);
+        console.log("200 - Login successful");
         // res.status(200).send("200 - Login successful");
+        // console.log({token});
 
         res.json({token});
     } catch (error) {
@@ -79,7 +80,7 @@ router.post("/login", async (req, res) => {
     }
 });
 
-router.post("/auth", auth, (req, res) => {
+router.get("/", authentication, (req, res) => {
     try {
         res.json(true);
     } catch (err) {
@@ -87,5 +88,26 @@ router.post("/auth", auth, (req, res) => {
         res.status(500).send(err);
     }
 })
+
+// function authToken(req, res, next) {
+//     const token = req.header("token");
+//     // const authHeader = req.headers['authorization'];
+//     // console.log("authHeader: " + authHeader);
+//     // const token = authHeader && authHeader.split(' ')[1];
+//     // console.log("authHeader.split(' ')[1]: " + authHeader.split(' ')[1]);
+//     console.log(token);
+//     if (token === null) throw "401 - Unauthorized - null";
+//     if(!token) throw "401 - Unauthorized - !token";
+
+//     try {
+//         const verify = jwt.verify(token, secret);
+//         console.log("verify: " + verify);
+//         req.user = verify.user;
+//         next();
+//     } catch (err) {
+//         console.log("Reason - " + err);
+//         res.status(401).json(err);
+//     }
+// };
 
 module.exports = router;

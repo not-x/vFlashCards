@@ -4,7 +4,7 @@ const auth = require('../auth');
 const db = require('../db');
 
 // Get public flashcard sets
-router.get('/vfc_public_lib', auth, async(req, res) => {
+router.get('/vfc_public_lib', auth, async (req, res) => {
     try {
         const vfcPublicLib = await pool.query(
             "SELECT vfc_set_title FROM vfc_set WHERE vfc_set_view_access = 'public'");
@@ -15,12 +15,14 @@ router.get('/vfc_public_lib', auth, async(req, res) => {
     }
 });
 
-// // Get private flashcard set for vfc_user
-router.get('/vfc_lib', auth, async(req, res) => {
+// // Get private flashcard sets for vfc_user
+router.get('/vfc_lib', auth, async (req, res) => {
     try {
         // const vfc_user = await pool.query("SELECT vfc_user")
+        // vfcPrivateLib = await pool.query(SELECT )
     } catch (error) {
-        
+        console.log("Error - " + err);
+        res.send("Error" + err);
     }
 });
 
