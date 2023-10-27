@@ -86,3 +86,19 @@ ALTER TABLE vflashcard_set ALTER COLUMN vfc_set_view_access SET DEFAULT 'private
 
 -- Shorten vflashcard_set to vfc_set
 ALTER TABLE vflashcard_set RENAME TO vfc_set;
+
+-- Copy database within the same server (for testing purpose)
+-- See the following link for detail:
+-- https://www.postgresqltutorial.com/postgresql-administration/postgresql-copy-database/
+CREATE DATABASE vfc_test WITH TEMPLATE vflashcards;
+
+-- If server is in used, either closed out of existing session or
+-- Query active connections:
+SELECT pid, usename, client_addr FROM pg_stat_activity WHERE datname 'vflashcards';
+
+-- Terminate active connections
+SELECT pg_terminate_backend (pid) FROM pg_state_activity WHERE datname = 'vflashcards';
+
+-- For test server - 'vfc_test'
+-- Changing the datatype for vfc_id.
+ALTER TABLE vflashcard ALTER COLUMN vfc_id TYPE SERIAL;
