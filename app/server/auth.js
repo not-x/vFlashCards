@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
     try {
         const token = req.header("token");
         if (!token || token === null) throw "401 - Unauthorized";
-        console.log("token: " + token);
+        // console.log("token: " + token);
 
         const validate = jwt.verify(token, process.env.TOKEN_SECRET);
         // console.log("validated: " + validate);

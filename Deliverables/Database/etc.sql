@@ -1,7 +1,9 @@
 CREATE DATABASE vflashcards;
 -- \l to list all database and confirm that it has been created
 -- \c vflashcards to connect to the database
--- \! cls to clear screen
+-- "\! cls" to clear screen
+-- "\!" to switch to terminal
+
 
 -- Create the tables:
 
@@ -102,3 +104,9 @@ SELECT pg_terminate_backend (pid) FROM pg_state_activity WHERE datname = 'vflash
 -- For test server - 'vfc_test'
 -- Changing the datatype for vfc_id.
 ALTER TABLE vflashcard ALTER COLUMN vfc_id TYPE SERIAL;
+
+-- PROD Database - Shorten column name: vfc_set_view_access --> vfc_set_access
+ALTER TABLE vfc_set RENAME COLUMN vfc_set_view_access TO vfc_set_access;
+
+-- Shorten table name: vflashcard --> vfc
+ALTER TABLE vflashcard RENAME TO vfc;
