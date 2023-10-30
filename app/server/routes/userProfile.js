@@ -3,6 +3,8 @@ const router = express.Router();
 const auth = require('../auth');
 const db = require('../db');
 const pool = require("../db");
+const verifySetAccess = require('../verifySetAccess');
+const { verify } = require('jsonwebtoken');
 
 // Get public flashcard sets
 router.get('/pub_lib', auth, async (req, res) => {
@@ -112,9 +114,9 @@ router.get("/pub_lib/:vfcSetID", auth, async (req, res) => {
 router.post("/new_set/", auth, async (req, res) => {
     try {
         const userID = req.user;
-        const { title, accessType } = req.body;
+        const { title, access } = req.body;
         if (title === undefined) throw "Missing title";
-        if (accessType === undefined) throw "Missing access type. (public/private)"
+        if (access === undefined) throw "Missing access type. (public/private)"
         // const findDuplicateTitle = await pool.query(
         //     "SELECT vfc_set_title FROM vfc_set WHERE vfc_set_title = $1", [title]
         // );
@@ -127,8 +129,8 @@ router.post("/new_set/", auth, async (req, res) => {
         if (findDuplicateTitle.rows.length !== 0) throw "Duplicate title. Please try another.";
 
         const newSet = await pool.query(
-            "INSERT INTO vfc_set (vfc_user_id, vfc_set_title, vfc_set_view_access) VALUES ($1, $2, $3) RETURNING *",
-            [userID, title, accessType]
+            "INSERT INTO vfc_set (vfc_user_id, vfc_set_title, vfc_set_access) VALUES ($1, $2, $3) RETURNING *",
+            [userID, title, access]
         );
         console.log("New vflashcard set added.");
         res.send("New vflashcard set added.")
@@ -143,49 +145,93 @@ router.post("/new_set/", auth, async (req, res) => {
 // Update a vfc_set's title and access type(private/public)
 router.put("/lib/:vfcSetID", auth, async (req, res) => {
     try {
-        if (req.body.title === undefined && req.body.accessType === undefined) throw "Missing arguments. Please retry."
-        // const getAccess = (req.body.accessType).toLowerCase();
-        // console.log(getAccess);
-        // if (getAccess !== "private" && req.body.accessType !== "public") {
+        console.log("[Route - Update card set]");
+        if (req.body.title === undefined && req.body.access === undefined) throw "Missing arguments. Please retry."
+
+        const userID = req.user;
+        const { vfcSetID } = req.params;
+        const { title, access } = req.body;
+
+        if (title && access) {
+            console.log("2 parameters");
+            const accessVerified = verifySetAccess(access);
+            console.log(accessVerified);
+            const updateCardSet = await pool.query(
+                "UPDATE vfc_set SET vfc_set_title = $1, vfc_set_access = $2 WHERE vfc_set_id = $3 AND vfc_user_id = $4 RETURNING *",
+                [title, accessVerified, vfcSetID, userID]
+            );
+            console.log(JSON.stringify(updateCardSet));
+            if (updateCardSet.rows.length === 0) throw "403 - Forbidden"
+
+        } else if (title === undefined && access !== undefined) {
+            console.log("access type only");
+            const accessVerified = verifySetAccess(access);
+            const updateCardSet = await pool.query(
+                "UPDATE vfc_set SET vfc_set_access = $1 WHERE vfc_set_id = $2 AND vfc_user_id = $3 RETURNING *",
+                [accessVerified, vfcSetID, userID]
+            );
+            console.log(JSON.stringify(updateCardSet));
+            if (updateCardSet.rows.length === 0) throw "403 - Forbidden"
+        } else if (title !== undefined && access === undefined) {
+            console.log("title only");
+
+            const updateCardSet = await pool.query(
+                "UPDATE vfc_set SET vfc_set_title = $1 WHERE vfc_set_id = $2 AND vfc_user_id = $3 RETURNING *",
+                [title, vfcSetID, userID]
+
+            );
+            // console.log(updateCardSet.rows.length);
+            if (updateCardSet.rows.length === 0) throw "403 - Forbidden"
+            // console.log("End title only");
+       
+        }
+        // const getAccess = (req.body.access !== undefined) ? (req.body.access).toLowerCase() : undefined
+        // const argLength = getAccess.length;
+        // console.log(`access: ${getAccess}`);
+        // if (getAccess !== undefined || argLength < 6 || argLength > 7 || (argLength === 7 && getAccess !== "private") || (argLength === 6 && getAccess !== "public")) {
         //     console.log("Invalid access type");
         //     throw "Invalid access type.";
         // }
-        const userID = req.user;
-        const {vfcSetID} = req.params;
-        console.log(vfcSetID);
+
+        // console.log("access arg = ok!");
+
+        // const userID = req.user;
+        // const { vfcSetID } = req.params;
+        // console.log(vfcSetID);
         // test result from SQL query
-        const result = await pool.query("SELET vfc_set_access from vfc_set WHERE vfc_set_id = $1 AND vfc_user = $2", vfcSetID, userID);
+        // const result = await pool.query("SELET vfc_set_access from vfc_set WHERE vfc_set_id = $1 AND vfc_user = $2", vfcSetID, userID); 
+        // const result = await pool.query("SELET vfc_set_access from vfc_set WHERE vfc_set_id = $1", vfcSetID);
 
-        console.log("Result: " + result);
+        // console.log("Result: " + result);
 
-        const accessType = (
-            req.body.access !== undefined ? req.body.access : await pool.query("SELET vfc_set_access from vfc_set WHERE vfc_set_id = $1 AND vfc_user = $2", vfcSetID, userID));
-        const title = (
-            req.body.title !== undefined ? req.body.title :
-                await pool.query("SELECT vfc_set_title FROM vfc_set WHERE vfc_set_id = $1 AND vfc_user = $2", vfcSetID, userID));
+        // const access = (
+        //     req.body.access !== undefined ? req.body.access : await pool.query("SELET vfc_set_access from vfc_set WHERE vfc_set_id = $1 AND vfc_user = $2", vfcSetID, userID));
+        // const title = (
+        //     req.body.title !== undefined ? req.body.title :
+        //         await pool.query("SELECT vfc_set_title FROM vfc_set WHERE vfc_set_id = $1 AND vfc_user = $2", vfcSetID, userID));
 
-        // const { title, accessType } = req.body;
-        console.log("userid: " + userID);
-        console.log("vfc ID: " + vfcSetID);
+        // const { title, access } = req.body;
+        // console.log("userid: " + userID);
+        // console.log("vfc ID: " + vfcSetID);
 
-        const updateCardSet = await pool.query(
-            "UPDATE vfc_set SET vfc_set_title = $1, vfc_set_access = $2 WHERE vfc_set_id = vfcSetID = $3 AND vfc_user_id = $4",
-            [title, accessType, vfcSetID, userID]
-        );
+        // const updateCardSet = await pool.query(
+        //     "UPDATE vfc_set SET vfc_set_title = $1, vfc_set_access = $2 WHERE vfc_set_id = vfcSetID = $3 AND vfc_user_id = $4",
+        //     [title, access, vfcSetID, userID]
+        // );
 
-        // if (title && accessType) {
+        // if (title && access) {
         //     console.log("2 parameters");
         //     const updateCardSet = await pool.query(
         //         "UPDATE vfc_set SET vfc_set_title = $1, vfc_set_access = $2 WHERE vfc_set_id = vfcSetID = $3 AND vfc_user_id = $4",
-        //         [title, accessType, vfcSetID, userID]
+        //         [title, access, vfcSetID, userID]
         //     );
-        // } else if (title === undefined && accessType !== undefined) {
+        // } else if (title === undefined && access !== undefined) {
         //     console.log("access type only");
         //     const updateCardSet = await pool.query(
         //         "UPDATE vfc_set SET vfc_set_access = $1 WHERE vfc_set_id = $2 AND vfc_set_id = $3",
-        //         [accessType, vfcSetID, userID]
+        //         [access, vfcSetID, userID]
         //     );
-        // } else if (title !== undefined && accessType === undefined) {
+        // } else if (title !== undefined && access === undefined) {
         //     console.log("title only");
         //     const updateCardSet = await pool.query(
         //         "UPDATE vfc_set SET vfc_set_title = $1 WHERE vfc_set_id = $2 AND vfc_set_id = $3",
@@ -196,18 +242,18 @@ router.put("/lib/:vfcSetID", auth, async (req, res) => {
         //     console.log(updateCardSet);
         // } else {
         //     console.log("Missing 2 parameters");
-        //     console.log(`Parameters: ${vfcSetID}, ${title}, ${accessType}`, vfcSetID, title, accessType);
+        //     console.log(`Parameters: ${vfcSetID}, ${title}, ${access}`, vfcSetID, title, access);
         //     throw "400 - Bad Request"
         // }
 
-        console.log(updateCardSet);
-        if (updateCardSet.rows.length === 0) throw "403 - Forbidden"
-
-        console.log("vFlashCard set has been successfully updated.");
-        res.json("vFlashCard set has been successfully updated.");
+        // console.log(updateCardSet);
+        // if (updateCardSet.rows.length === 0) throw "403 - Forbidden"
+        const result = "vFlashCard set has been successfully updated.";
+        console.log(result);
+        res.json(result);
     } catch (err) {
-        console.error(err.message);
-        res.send(err);
+        console.error("Error - " + err);
+        res.send("Error - " + err);
     }
 
 });
@@ -215,33 +261,36 @@ router.put("/lib/:vfcSetID", auth, async (req, res) => {
 // Update a vfc from a set
 
 // Delete vfc_set
-router.delete("lib/:vfcSetID", auth, async (req, res) => {
+router.delete("/lib/:vfcSetID", auth, async (req, res) => {
     try {
+
         const userID = req.user;
         const { vfcSetID } = req.params;
-        console.log(vfcSetID);
+        console.log("Delete private card set:");
+        // console.log(vfcSetID);
 
-        // Query test:
-        const vfcPrivateLib = await pool.query(
-            "SELECT s.vfc_set_id, s.vfc_set_title FROM vfc_user AS u INNER JOIN vfc_set AS s ON u.vfc_user_id = s.vfc_user_id WHERE u.vfc_user_id = $1", [userID]
-        );
+        // [Query test] - Delete query was not working properly:
+        // const vfcPrivateLib = await pool.query(
+        //     "SELECT s.vfc_set_id, s.vfc_set_title FROM vfc_user AS u INNER JOIN vfc_set AS s ON u.vfc_user_id = s.vfc_user_id WHERE u.vfc_user_id = $1", [userID]
+        // );
+        // console.log("Get library test: " + JSON.stringify(vfcPrivateLib.rows));
+        // // [END query test]
 
-        console.log("Get library test: " + vfcPrivateLib);
-
+        // Delete query
         const deleteCardSet = await pool.query(
             "DELETE FROM vfc_set WHERE vfc_user_id = $1 AND vfc_set_id = $2 RETURNING *",
             [userID, vfcSetID]
         );
-        if (deleteCardSet.row.length === 0) throw "403 - Forbidden";
+        console.log(deleteCardSet.rows);
+        if (deleteCardSet.rows.length === 0) throw "403 - Forbidden";
 
         console.log("vFlashCard set has been deleted.");
         res.json("vFlashCard set has been deleted.");
-    } catch (error) {
+    } catch (err) {
         console.log("Error - " + err);
-        json.send("Error - " + err);
+        res.send("Error - " + err);
     }
-
-})
+});
 
 // Delete a vfc from a set
 
