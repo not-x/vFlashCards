@@ -38,7 +38,6 @@ router.get('/lib', auth, async (req, res) => {
         console.log("Private library route:");
         userID = req.user;
         // console.log(userID);
-
         const vfcPrivateLib = await pool.query(
             "SELECT s.vfc_set_id, s.vfc_set_title FROM vfc_user AS u INNER JOIN vfc_set AS s ON u.vfc_user_id = s.vfc_user_id WHERE u.vfc_user_id = $1", [userID]
         );
@@ -65,6 +64,12 @@ router.get("/lib/:vfcSetID", auth, async (req, res) => {
     try {
         const { vfcSetID } = req.params;
         // console.log(vfcSetID);
+        const verifyPermission = await pool.query(
+            "SELECT * from vfc_set WHERE vfc_user_id = $1 AND vfc_set_id = $2", [userID, vfcSetID]
+        );
+
+        if (verifyPermission.rows.length === 0) throw "403 - Forbidden";
+
         const getCards = await pool.query(
             "SELECT s.vfc_set_title, c.vfc_id, c.vfc_question, c.vfc_answer FROM vfc AS c INNER JOIN vfc_set AS s ON c.vfc_set_id = s.vfc_set_id WHERE c.vfc_set_id = $1 AND s.vfc_user_id = $2",
             [vfcSetID, userID]
@@ -90,9 +95,17 @@ router.get("/lib/:vfcSetID", auth, async (req, res) => {
 // Get cards from a public vfc_set
 router.get("/pub_lib/:vfcSetID", auth, async (req, res) => {
     try {
-        // const userID = req.user;
+        const userID = req.user;
         const { vfcSetID } = req.params
-        console.log("set id: " + vfcSetID);
+        // console.log("set id: " + vfcSetID);
+        console.log(userID);
+
+        const verifyAccess = await pool.query(
+            "SELECT * FROM vfc_set WHERE vfc_set_id = $1 AND vfc_set_access = 'public'", [vfcSetID]
+        );
+
+        if (verifyAccess.rows.length === 0) throw "403 - Forbidden";
+
         const vfcList = await pool.query(
             "SELECT s.vfc_set_title, c.vfc_id, c.vfc_question, c.vfc_answer FROM vfc_set AS s LEFT JOIN vfc AS c ON s.vfc_set_id = c.vfc_set_id WHERE s.vfc_set_access = 'public' AND c.vfc_set_id = $1", [vfcSetID]
         );
@@ -335,7 +348,7 @@ router.delete("/lib/:vfcSetID/:vfc_id", auth, async (req, res) => {
         // console.log(verifyAccess)
 
         if (verifyAccess.rows.length === 0) throw "403 - Forbidden";
-        
+
         console.log("Access OK - Will DELETE card");
         const deleteCard = await pool.query(
             "DELETE FROM vfc WHERE vfc_set_id = $1 AND vfc_id = $2 RETURNING *", [vfcSetID, vfc_id]

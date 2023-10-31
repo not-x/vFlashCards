@@ -110,3 +110,6 @@ ALTER TABLE vfc_set RENAME COLUMN vfc_set_view_access TO vfc_set_access;
 
 -- Shorten table name: vflashcard --> vfc
 ALTER TABLE vflashcard RENAME TO vfc;
+
+-- Show email, vfc set ids, vfc access type
+SELECT u.vfc_user_email, s.vfc_set_id, s.vfc_set_access FROM vfc_set AS s INNER JOIN vfc_user as u ON s.vfc_user_id = u.vfc_user_id;
