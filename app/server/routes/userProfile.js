@@ -70,15 +70,15 @@ router.get("/lib/:vfcSetID", auth, async (req, res) => {
             [vfcSetID, userID]
             // "SELECT * FROM vfc WHERE vfc_set_id = $1", [vfcSetID]
         );
-        console.log(getCards);
+        // console.log(getCards);
         if (getCards.rows.length === 0) {
             console.log("No cards found");
             res.json("No cards found.");
         } else {
             console.log("No error found");
-            console.log(JSON.stringify(getCards));
+            // console.log(JSON.stringify(getCards));
             console.log(getCards.rows);
-            res.json(getCards);
+            res.json(getCards.rows);
         }
     } catch (err) {
         console.log("Error - " + err);
@@ -101,7 +101,8 @@ router.get("/pub_lib/:vfcSetID", auth, async (req, res) => {
             console.log("Card set is empty.");
             res.json("Card set is empty.");
         } else {
-            res.json(vfcList)
+            console.log(vfcList.rows);
+            res.json(vfcList.rows)
         }
     } catch (err) {
         console.log(`Error - ${err}`);
@@ -141,6 +142,34 @@ router.post("/new_set/", auth, async (req, res) => {
 
 });
 // Create a new card for a vfc_set
+router.post("/lib/:vfcSetID/new_card/", auth, async (req, res) => {
+    try {
+        console.log("[Route - Create new card]");
+        const { vfcSetID } = req.params;
+        const userID = req.user;
+        const { question, answer } = req.body;
+        if (question === undefined || answer === undefined) throw "Error - No input for question or answer."
+
+        const verifyPermission = await pool.query(
+            "SELECT * FROM vfc_set WHERE vfc_set_id = $1 AND vfc_user_id = $2", [vfcSetID, userID]
+        );
+        console.log(verifyPermission.rows);
+        if (verifyPermission.rows.length === 0) throw "403 - Forbidden"
+
+        const createNewCard = await pool.query(
+            "INSERT INTO vfc (vfc_set_id, vfc_question, vfc_answer) VALUES ($1, $2, $3) RETURNING *", [vfcSetID, question, answer]
+        );
+
+        if (createNewCard.rows.length === 0) throw "403 - Forbidden"
+
+        const result = "New card added.";
+        console.log(result);
+        res.send(result);
+    } catch (error) {
+        console.error(error);
+        res.send(error);
+    }
+});
 
 // Update a vfc_set's title and access type(private/public)
 router.put("/lib/:vfcSetID", auth, async (req, res) => {
@@ -183,7 +212,7 @@ router.put("/lib/:vfcSetID", auth, async (req, res) => {
             // console.log(updateCardSet.rows.length);
             if (updateCardSet.rows.length === 0) throw "403 - Forbidden"
             // console.log("End title only");
-       
+
         }
         // const getAccess = (req.body.access !== undefined) ? (req.body.access).toLowerCase() : undefined
         // const argLength = getAccess.length;
@@ -293,6 +322,36 @@ router.delete("/lib/:vfcSetID", auth, async (req, res) => {
 });
 
 // Delete a vfc from a set
+router.delete("/lib/:vfcSetID/:vfc_id", auth, async (req, res) => {
+    try {
+        console.log("[Route - delete existing card");
+
+        const userID = req.user;
+        const { vfcSetID, vfc_id } = req.params;
+
+        const verifyAccess = await pool.query(
+            "SELECT * FROM vfc_set WHERE vfc_user_id = $1 AND vfc_set_id = $2", [userID, vfcSetID]
+        );
+        // console.log(verifyAccess)
+
+        if (verifyAccess.rows.length === 0) throw "403 - Forbidden";
+        
+        console.log("Access OK - Will DELETE card");
+        const deleteCard = await pool.query(
+            "DELETE FROM vfc WHERE vfc_set_id = $1 AND vfc_id = $2 RETURNING *", [vfcSetID, vfc_id]
+        );
+        console.log(deleteCard.rows);
+        if (deleteCard.rows.length === 0) throw "403 - Forbidden";
+
+        const result = "Card delete successfully.";
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.json(err);
+    }
+
+})
 
 
 
