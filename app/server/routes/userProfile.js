@@ -155,7 +155,7 @@ router.post("/new_set/", auth, async (req, res) => {
 
 });
 // Create a new card for a vfc_set
-router.post("/lib/:vfcSetID/new_card/", auth, async (req, res) => {
+router.post("/lib/:vfcSetID", auth, async (req, res) => {
     try {
         console.log("[Route - Create new card]");
         const { vfcSetID } = req.params;
