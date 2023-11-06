@@ -1,0 +1,127 @@
+Date,Task,Duration (min),Notes,Activity Type
+"Friday, August 25, 2023",Brainstorm potential project,60,Brain storm ideas for the project.,Design
+"Friday, August 25, 2023",Orientation,75,,Other
+"Saturday, August 26, 2023",Brainstorm potential project,90,Continued brain storming project ideas.,Design
+"Saturday, August 26, 2023",MERN stack tutorial,150,"Explored MERN stack, which may be used for the project.",Research/training/learning
+"Sunday, August 27, 2023",MERN stack tutorial,120,"Continued with the tutorial, which will be used for the project",Research/training/learning
+"Sunday, August 27, 2023",Shortlist and finalize  potential projects,90,Finalized ideas,Design
+"Monday, August 28, 2023",Draft responses for the proposal,90,First draft.,Design
+"Monday, August 28, 2023",Review the Project Proposal form,15,Reviewed and copied prompts so that drafts can be done before the submission.,Design
+"Tuesday, August 29, 2023",Reviewed  and edited responses for the proposal,90,Discarded sections of responses.,Design
+"Thursday, August 31, 2023",Final review and proposal submission.,30,Final review and additional edits for the submission.,Design
+"Friday, September 1, 2023",MERN stack tutorial,60,-,Research/training/learning
+"Sunday, September 3, 2023",MERN stack tutorial,240,Continued with the tutorial. A significant amount of time was spent downloading and installing packages to setup a temporary development machine. (Issue with the primary machine.),Research/training/learning
+"Monday, September 4, 2023",Researched examples of Project Proposal,90,Researched online material. Made notes to follow up with the instructors.,Research/training/learning
+"Monday, September 4, 2023",MERN stack tutorial,90,Spent significant time to troubleshoot the code.,Research/training/learning
+"Tuesday, September 5, 2023",Office hour with Professor Lapid,45,Followed up on questions regarding deliverables.,Other
+"Tuesday, September 5, 2023",Reorganize notes,30,Reorganized and edited  notes from the office hour.,Research/training/learning
+"Tuesday, September 5, 2023",Wireframe – brainstorm,60,Brain storm ideas on potential wireframe on paper. Researched sites for ideas.,Design
+"Wednesday, September 6, 2023",Reading – Informal Guidebook,30,Went through the 4900 Informal Guidebook,Other
+"Wednesday, September 6, 2023",Wireframe – brainstorm,60,Continue brain storming ideas. Finalize the ideas to be transferred to the digital version.,Design
+"Wednesday, September 6, 2023",Researched NoSQL vs relational DB,60,Debating between MongoDB (NoSQL) or PostgreSQL. Will follow up with the supervisor.,Research/training/learning
+"Friday, September 8, 2023",Learn React,180,CTP session + lab assignment.,Research/training/learning
+"Sunday, September 10, 2023",Wireframe – draw digital version,150,Drew wireframes via KolourPaint.,Research/training/learning
+"Sunday, September 10, 2023",Sitemap,60,Experimented with LibreOffice Draw but settled on Google Drawings.,Design
+"Sunday, September 10, 2023",Create user flowchart,120,Researched online examples. Used Google Drawings.,Design
+"Sunday, September 10, 2023",ERD for the database,150,"Tried two utilities and settled on the ERD diagram tool from MySQL Workbench. Also, unable to get FK to appear on linked tables.",Design
+"Monday, September 11, 2023",Created tentative schedule.,45,For the design document.,Other
+"Monday, September 11, 2023",Create/revised/upload Design Document,60,-,Other
+"Monday, September 11, 2023",Began reviewing the next deliverable.,30,Done via BB. Documented follow up questions for office hour.,Research/training/learning
+"Monday, September 11, 2023",Reached out to teammate to schedule a meeting.,15,-,"Team discussion, emails"
+"Tuesday, September 12, 2023",Office hour with Professor Lapid,60,Met with Professor Lapid regarding Demo-1.,Research/training/learning
+"Tuesday, September 12, 2023",Meeting with teammate,30,Touched base about the project,"Team discussion, emails"
+"Wednesday, September 13, 2023",Met with CTP TA regarding DB,30,Followed up about DB choice.,Other
+"Thursday, September 14, 2023",Create GitHub Repo and Commit,120,Spent time troubleshooting git push from client. Look over docs to generate token.,Testing & Debugging
+"Friday, September 15, 2023",Learn React,120,Lecture via CTP,Research/training/learning
+"Friday, September 15, 2023",Touch base with supervisor,15,Followed up regarding proposal. Received feedback. Followed up with questions.,"Supervisor discussion, emails"
+"Saturday, September 16, 2023",Draft material for demo-1. Rehearse for presentation.,150,Began drafting the material for the video. Timed and rehearsed the presentation.,Design
+"Sunday, September 17, 2023",Create README.md,30,Did a quick overview of markdown as well.,Design
+"Sunday, September 17, 2023",Work on PM board,60,Created and worked on PM board. Began populating with tentative tasks.,Design
+"Sunday, September 17, 2023",Revised Demo-1 slides and script. Rehearsed for demo.,120,Issue with video recording. Experimented with Gnome built-in recorder. Ran into roadblocks. Unable to record via Linux Zoom.,Design
+"Sunday, September 17, 2023",Record video,30,Done via PowerPoint. Video appears fine under G-Drive and Windows Media Player. Issue with VLC Player (Wins) during playback. (Slide transition resulted in hiccups.),Design
+"Monday, September 18, 2023","Revised ERD, sitemap, README",45,"- Deleted Library table. Edited relationships. Figured out the way to add foreign key.
+- Revised sitemap.
+- Minor README revision.",Design
+"Monday, September 18, 2023",Demo-1,30,Presentation and feedback.,Other
+"Monday, September 18, 2023",Reorganize notes from Demo-1,15,Documented the feedback. Added notes on suggestions on the password reset feature.,Other
+"Monday, September 18, 2023",Test Git push,15,Tested Git push because local files and dev environment were transferred to another machine.,Testing & Debugging
+"Tuesday, September 19, 2023",Touch base with supervisor,15,Reviewed and documented the feedback on database. Followed up regarding teammate status from CTP.,"Supervisor discussion, emails"
+"Wednesday, September 20, 2023",Learn React,60,Went over the previous CTP video lecture. Worked with the weekly assignment.,Research/training/learning
+"Thursday, September 21, 2023",Touch base with supervisor,0,"Followed up to confirm workload, which relates to the status with tentative teammate.","Supervisor discussion, emails"
+"Thursday, September 21, 2023",Learn React,180,Continue going over previous CTP video lecture on React. Completed React assignment.,Research/training/learning
+"Friday, September 22, 2023",CTP Lecture / Learn React,150,-,Research/training/learning
+"Friday, September 22, 2023",Touch base with supervisor,15,Followed up regarding teammate status. Team is officially 1. No change in workload at this time.,"Supervisor discussion, emails"
+"Friday, September 22, 2023",Install & troubleshoot PostGreSQL,60,Unable to login with default account and password. Attempted to reset the password without success.,Testing & Debugging
+"Saturday, September 23, 2023",Resolve PostGreSQL installation issue. PERN stack tutorial,120,Took ownership of the program folder to delete remaining files. Reinstalleod PostGreSQL. Began PERN stack tutorial.,Testing & Debugging
+"Sunday, September 24, 2023",PERN stack tutorial,60,Continued PERN stack tutorial.,Research/training/learning
+"Sunday, September 24, 2023",PostgreSQL SQL shell walkthrough,120,"Tutorial of PostgresSQL - SQL shell, which included practice on SQL commands.",Research/training/learning
+"Tuesday, September 26, 2023",JSON Web Token Tutorial,150,Learned JWT and how it can be implemented.,Research/training/learning
+"Wednesday, September 27, 2023",JSON Web Token Tutorial,210,Continue learning about JWT. Experimented with tutorial.,Research/training/learning
+"Friday, September 29, 2023",PostgreSQL SQL – Recreate schema + translate into SQL script,210,Used pgAdmin 4 ? ERD Tool to create refined schema. Created enum type for flashcard set view. Generated SQL script but was unable to execute without error. Attempted to troubleshoot without success.,Testing & Debugging
+"Saturday, September 30, 2023",Create database tables,120,Used the generated SQL script and manually created tables on individual basis. Did not realize that double quotes forces all select and insert to be double quoted. Will have to remove all tables and recreate them.,Coding
+"Sunday, October 1, 2023",Delete existing tables and revise SQL script,90,"Deleted all existing tables and revised existing scripts. Looked up information pertaining to UUID and installed the required module, which will be used for primary keys.",Testing & Debugging
+"Monday, October 2, 2023",Continue SQL script revision,60,"Continue revising SQL script to create tables. Also, looked up SQL queries to add foreign keys.",Testing & Debugging
+"Tuesday, October 3, 2023",Continue SQL script revision,60,"Continued SQL revision to create tables. Succeeded in creating 2 tables but failed on the 3rd due to constraint issue:
+ERROR:  there is no unique constraint matching given keys for referenced table ""vflashcard_set""
+Unable to find a resolution.",Testing & Debugging
+"Tuesday, October 3, 2023",Begin working on the app’s backend,60,-,Coding
+"Wednesday, October 4, 2023",DB question with CTP TA.,60,"Followed up on constraint issue with the 3rd table, questions on whether UUID should be used for other primary keys.",Other
+"Thursday, October 5, 2023",Learn React,90,Collaborated with CTP teammate on lab with focus on React.,Coding
+"Thursday, October 5, 2023",Continue working on app’s backend,180,"Attempted to troubleshoot the signup route without success. Issue with post request with req.body, which returns nothing.",Testing & Debugging
+"Friday, October 6, 2023",Troubleshoot backend server,60,Figured out the issue with the failed post request. Proper header type needed to be sent with the post request (Content-Type : application/json and Content-Length).,Testing & Debugging
+"Monday, October 9, 2023",Database,90,Looked up information pertaining to composite primary key. Revised so existing tables will use only primary key. (Update done via pgAdmin 4). Added 3rd (vflashcard) via SQL command line.,Coding
+"Monday, October 9, 2023",Work on app’s backend,120,Worked on routes for signup. Researched ways to throw error in JS so that specific errors can be thrown. Looked up SQL commands to delete row data. Coded then tested POST via POSTMAN. Also spent time in SQL shell to gain exposure to SQL queries.,Coding
+"Tuesday, October 10, 2023",Go over project board,30,Went over items on Github Project. Reviewed and updated tasks with notes. Created new ones.,Other
+"Tuesday, October 10, 2023",Continue working on app’s backend,150,Researched ways to log req.body to the screen. (Requires the use of JSON.stringify). Created login route. Tested SQL commands to query multiple column data from a table.,Coding
+"Friday, October 13, 2023",Read blog on bcrypt,90,Went over a posting regarding bcrypt. Experimented with the sample code.,Research/training/learning
+"Saturday, October 14, 2023",Follow up on bcrypt,180,"Went over another posting on bcrypt, which has a longer explanation than the previous. Experimented with the examples.",Research/training/learning
+"Sunday, October 15, 2023",Implement bcrypt on signup + login routes,150,"Implemented bcrypt on signup and login routes. Attempted to clear rows from vfc_user previously used to test the signup route. Had to cascade because due to foreign key references. Also, experienced issue when attempting to use the data returned from SQL query. Took awhile to figure out a way to get the hash so that it can be compared against the password. Added the codes/examples used to learn about bcrypt. (See Notes.)",Coding
+"Tuesday, October 17, 2023",SQL query tutorial,120,"Went over tutorial on SQL query on join, alter tables, adding columns. Experimented with query on the PostGreSQL server. Made revisions to the vflashcard_set table. Documented the queries used. Generated new ERD from the revision. Updated the naming convention for existing ERD to maintain consistency.",Research/training/learning
+"Wednesday, October 18, 2023",Review JSON Web Token tutorial,60,Went through a tutorial via Digital Ocean. Experimented with the code.,Research/training/learning
+"Thursday, October 19, 2023",Implement function to generate JsonWebToken and middleware for authentication,180,"1. Created token secret and saved under .env.
+2. Created tokenGenerator.js. Error with expiresIn but did not make headway while troubleshooting: Error: invalid expiresIn option for string payload
+3. Added middleware ? auth.js
+4. Revised login route. ",Coding
+"Friday, October 20, 2023",Learn about backend / Express,90,CTP lecture,Research/training/learning
+"Saturday, October 21, 2023",Troubleshoot tokenGenerator.js,90,"Debugged the error: Error: invalid expiresIn option for string payload.
+Also, revised signup/login routes. Input email is converted to lowercase to remove issue case sensitivity and avoid duplicate email.",Testing & Debugging
+"Sunday, October 22, 2023",Follow up on Express documentation,180,Followed up on the guide from lecture to develop more in-depth knowledge. Experimented with the code.,Research/training/learning
+"Sunday, October 22, 2023","Create other routes, troubleshoot auth.js",120,Began creating other routes necessary for vfc user. Troubleshoot auth.js but did not make any progress. Shorten vflashcard_set table to vfc_set for convenience purpose.,Coding
+"Monday, October 23, 2023",Touch base with supervisor,15,"Followed up regarding the team status, which is now 1. Also followed up with question pertaining to JSON Web Token and Git.","Supervisor discussion, emails"
+"Monday, October 23, 2023",Touch base with supervisor,0,Followed up with questions via Slack.,"Supervisor discussion, emails"
+"Wednesday, October 25, 2023",Debug the route to verify JSON web token,180,Reviewed several tutorials. Experimented and debugged the code.,Testing & Debugging
+"Thursday, October 26, 2023",Work on routes under personal profile,150,"Worked on routes for personal profile. (Get public/private flashcard sets, creating new flashcard set.) Had to troubleshoot SQL queries.",Coding
+"Thursday, October 26, 2023",Replicate database for test purpose,30,Learned the commands to replicate the vflashcard database on the server made a duplicate database for test purpose.,Research/training/learning
+"Sunday, October 29, 2023",Review Git Project,30,Reviewed project board. Updated tasks status and added new ones.,Other
+"Sunday, October 29, 2023",Continue to work on profile routes,270,"Continue working on routes under user profile:
+- Update vfc_set properties
+- Delete a set
+- Get card from a personal set
+- Get card from a public set
+Unable to resolve issues from all routes above during test.
+Also, shorten vflashcard table to vfc for convenience.",Coding
+"Monday, October 30, 2023",Debug delete card set route,45,"Resolved the delete card set route issue. The path missed the ‘/’ character:
+Before: lib/:param
+After: /lib/:param",Testing & Debugging
+"Monday, October 30, 2023",Debug update card set route,120,"Debugged the code and completed testing. Also, added verifySetAccess.js to check the access type argument and to convert it to lower case before insert.",Testing & Debugging
+"Monday, October 30, 2023","Work on profile routes:
+- Delete card
+- Create new card
+- Debug get cards from private library",75,"Created and debugged routes for delete card, create new card, and also debugged get cards from private set route. The last one can be refined, but should suffice for the time being.",Coding
+"Monday, October 30, 2023",Review and update project board,30,Updated tasks where appropriate.,Other
+"Tuesday, October 31, 2023",Rename etc.sql to SQL_Query_Journal.sql,0,Gave a more descriptive and appropriate file name.,Other
+"Tuesday, October 31, 2023","Work on profile routes:
+1 – Get private cards
+2 – Get public cards",60,"Added verification check (either user, set access type). Tested the routes. Also, added SQL query used during the test.",Coding
+"Friday, November 3, 2023",Touch base with supervisor,15,Followed up about project status and evaluation.,"Supervisor discussion, emails"
+"Friday, November 3, 2023",Review requirement and plan the presentation,60,Took notes from a previous email. Created a checklist.  Began brainstorming the presentation.,Other
+"Friday, November 3, 2023",Select presentation template,60,"Looked through templates from PowerPoint, LibreOffice Impress, and Google Slides. Tried various templates to see whether they have a stylistic fit with the project. Settled with Google Slides and experimented with the templates.",Other
+"Friday, November 3, 2023",Draft presentation,60,Wrote out all the possible pages. Will require 2-3 passes to finalize.,Other
+"Saturday, November 4, 2023",Draft presentation (cont’d),120,Reorganized and edited the previous draft. Will review again later before creating the slides.,Other
+"Saturday, November 4, 2023",Take and edit screenshots,30,"Downloaded MySQL Workbench to export old diagrams to PNG. Took and edited screenshots of several ERD, SQL Query journal, SQL Shell.",Other
+"Saturday, November 4, 2023",Revise sitemap,0,Done via Google docs. Exported PNG file.,Other
+"Saturday, November 4, 2023",Draft presentation (cont’d),60,Continued revising the draft for the presentation.,Other
+"Saturday, November 4, 2023",Take and edit screenshots (cont’d),30,Took screenshots using Postman.,Other
+"Saturday, November 4, 2023",Begin work on presentation,135,Began working on presentation slides (up to 7). Minor revision on the draft.,Other
+"Saturday, November 4, 2023",Minor revision to the route for creating new cards,0,Minor revision on userProfile.js,Testing & Debugging
+"Sunday, November 5, 2023",Continue work on presentation,390,Added additional screenshots. Created new slides. Made additional revision and retake screenshots as necessary.,Other

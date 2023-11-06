@@ -223,7 +223,7 @@ router.put("/lib/:vfcSetID", auth, async (req, res) => {
 
             );
             // console.log(updateCardSet.rows.length);
-            if (updateCardSet.rows.length === 0) throw "403 - Forbidden"
+            if (    CardSet.rows.length === 0) throw "403 - Forbidden"
             // console.log("End title only");
 
         }
