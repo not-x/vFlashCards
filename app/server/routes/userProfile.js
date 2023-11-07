@@ -223,7 +223,7 @@ router.put("/lib/:vfcSetID", auth, async (req, res) => {
 
             );
             // console.log(updateCardSet.rows.length);
-            if (    CardSet.rows.length === 0) throw "403 - Forbidden"
+            if (CardSet.rows.length === 0) throw "403 - Forbidden"
             // console.log("End title only");
 
         }
@@ -301,6 +301,62 @@ router.put("/lib/:vfcSetID", auth, async (req, res) => {
 });
 
 // Update a vfc from a set
+router.put("/lib/:vfcSetID/card/", auth, async (req, res) => {
+    try {
+        const userID = req.user;
+        const {vfcSetID} = req.params;
+        const { vfcID, question, answer } = req.body;
+
+        if (vfcID === undefined) throw "vFlashCard ID not provided. Please retry."
+        if (question === undefined && answer === undefined) throw "Missing information."
+
+        const verifyAccess = await pool.query(
+            "SELECT * FROM vfc_set WHERE vfc_user_id = $1 AND vfc_set_id = $2", [userID, vfcSetID]
+        );
+
+        console.log(verifyAccess.rows.length);
+
+        if (verifyAccess.rows.length === 0) throw "403 - Forbidden";
+
+        console.log("Matching user + setID");
+        
+        const verifyCard = await pool.query(
+            "SELECT * FROM vfc WHERE vfc_set_id = $1 AND vfc_id = $2",
+            [vfcSetID, vfcID]
+        );
+        if (verifyCard.rows.length === 0) throw "404 - Not found."
+
+        console.log("Access OK - Will Update...");
+
+        if (question && answer) {
+            console.log("question + answer");
+            const updateCardSet = await pool.query(
+                "UPDATE vfc SET vfc_question = $1, vfc_answer = $2 WHERE vfc_id = $3 RETURNING *",
+                [question, answer, vfcID]
+            );
+            // console.log(JSON.stringify(updateCardSet));
+            if (updateCardSet.rows.length === 0) throw "403 - Forbidden"
+        } else if (question !== undefined && answer === undefined) {
+            console.log("question only");
+            const updateCardSet = await pool.query(
+                "UPDATE vfc SET vfc_question = $1 WHERE vfc_id = $2 RETURNING *",
+                [question, vfcID]
+            );
+        } else if (question === undefined && answer !== undefined) {
+            console.log("answer only");
+            const updateCardSet = await pool.query(
+                "UPDATE vfc SET vfc_answer = $1 WHERE vfc_id = $2 RETURNING *",
+                [answer, vfcID]
+            );
+        }
+        const result = "Card successfully updated.";
+        console.log(result);
+        res.json(result);
+    } catch (err) {
+        console.error("Error - " + err);
+        res.send("Error - " + err);
+    }
+})
 
 // Delete vfc_set
 router.delete("/lib/:vfcSetID", auth, async (req, res) => {
