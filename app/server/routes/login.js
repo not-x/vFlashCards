@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const tokenGenerator = require("../tokenGenerator");
 const authentication = require('../auth');
+const { sign } = require("jsonwebtoken");
 
 router.post("/signup", async (req, res) => {
     try {
@@ -19,19 +20,30 @@ router.post("/signup", async (req, res) => {
 
         const lookupEmail = await pool.query("SELECT vfc_user_email FROM vfc_user WHERE vfc_user_email = $1", [emailLowerCase]);
         if (lookupEmail.rows.length !== 0) throw "Email already in use";
-        else {
-            const hash = bcrypt.hash(password, saltRounds, function (err, hash) {
-                const signup = pool.query("INSERT INTO vfc_user (vfc_user_fname, vfc_user_lname, vfc_user_email, vfc_user_password) VALUES ($1, $2, $3, $4)", [firstName, lastName, emailLowerCase, hash]);
-            })
-            // const signup = await pool.query("INSERT INTO vfc_user (vfc_user_fname, vfc_user_lname, vfc_user_email, vfc_user_password) VALUES ($1, $2, $3, $4)", [firstName, lastName, email, password]);
-        };
+
+        // const hash = await bcrypt.hash(password, saltRounds, function (err, hash) {
+        //     if (hash) {
+        //         const signup = pool.query("INSERT INTO vfc_user (vfc_user_fname, vfc_user_lname, vfc_user_email, vfc_user_password) VALUES ($1, $2, $3, $4)", [firstName, lastName, emailLowerCase, hash]);
+        //         console.log("hash: " + hash);
+        //         console.log(JSON.stringify(signup));
+        //     }
+        // });
+
+        const hash = bcrypt.hash(password, saltRounds)
+        const signup = await pool.query("INSERT INTO vfc_user (vfc_user_fname, vfc_user_lname, vfc_user_email, vfc_user_password) VALUES ($1, $2, $3, $4)", [firstName, lastName, email, password]);
+
+        // console.log("hash: " + hash);
+        // console.log(JSON.stringify(signup));
+
         // console.log("200 OK - " + JSON.stringify(req.body));
         // res.status(200).json(req.body);
 
-        const newUserID = await pool.query("SELECT vfc_user_id from vfc_user WHERE vfc_user_email = $1", [emailLowerCase]);
+        const getUserID = await pool.query("SELECT * from vfc_user WHERE vfc_user_email = $1", [emailLowerCase]);
 
-        const token = tokenGenerator(newUserID);
-        res.json({token});
+        // console.log(`newUserID: ${JSON.stringify(getUserID)}`);
+        // const token = tokenGenerator(getUserID.rows[0].vfc_user_id);
+        // console.log(`token: ${token}`);
+        res.json({ token });
 
     } catch (err) {
         console.error("500 Error - " + err);
@@ -43,7 +55,7 @@ router.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
         console.log(email + "/" + password);
-        
+
         if (email === undefined || password === undefined) throw "Missing credential";
 
         const emailLowerCase = email.toLowerCase();
@@ -67,13 +79,13 @@ router.post("/login", async (req, res) => {
         // const token = tokenGenerator(lookupLogin.rows[0].vfc_user_id);
 
         const token = tokenGenerator(userID);
-        
+
         console.log(`token: ${token}`);
         console.log("200 - Login successful");
         // res.status(200).send("200 - Login successful");
         // console.log({token});
 
-        res.json({token});
+        res.json({ token });
     } catch (error) {
         console.log("500 Error - " + error);
         res.status(500).send("500 Error - " + error);

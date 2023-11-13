@@ -125,3 +125,10 @@ After: /lib/:param",Testing & Debugging
 "Saturday, November 4, 2023",Begin work on presentation,135,Began working on presentation slides (up to 7). Minor revision on the draft.,Other
 "Saturday, November 4, 2023",Minor revision to the route for creating new cards,0,Minor revision on userProfile.js,Testing & Debugging
 "Sunday, November 5, 2023",Continue work on presentation,390,Added additional screenshots. Created new slides. Made additional revision and retake screenshots as necessary.,Other
+"Monday, November 6, 2023",Implement route – update existing card,30,Created the route to update an individual card. Testing completed.,Coding
+"Tuesday, November 7, 2023",React review,120,"Reading up on documentation, learning and experimenting with code.",Research/training/learning
+"Thursday, November 9, 2023",Touch base with supervisor,30,"Followed up my previous questions. Got recommendation on resources pertaining to JSONWebToken, pointers regarding Git and exposed API key and implications that it has on a multi user repo, implications of frontend vs backend verification/validation process.","Supervisor discussion, emails"
+"Saturday, November 11, 2023",React review,180,Reviewed concepts from MDN site,Research/training/learning
+"Sunday, November 12, 2023",Began work on frontend,90,Continued reviewing React and planned the components on frontend.,Research/training/learning
+"Sunday, November 12, 2023",Demo-2 prep,90,Preparation work for demo-2.,Other
+"Sunday, November 12, 2023",Debug signup route,30,Noticed an issue with the sign up route during my demo-2 run through. Spent time correcting the issue with hashing.,Testing & Debugging

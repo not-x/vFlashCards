@@ -37,7 +37,7 @@ router.get('/lib', auth, async (req, res) => {
     try {
         console.log("Private library route:");
         userID = req.user;
-        // console.log(userID);
+        console.log(`UserID: ${userID}`);
         const vfcPrivateLib = await pool.query(
             "SELECT s.vfc_set_id, s.vfc_set_title FROM vfc_user AS u INNER JOIN vfc_set AS s ON u.vfc_user_id = s.vfc_user_id WHERE u.vfc_user_id = $1", [userID]
         );
@@ -63,7 +63,7 @@ router.get("/lib/:vfcSetID", auth, async (req, res) => {
     const userID = req.user;
     try {
         const { vfcSetID } = req.params;
-        // console.log(vfcSetID);
+        console.log(vfcSetID);
         const verifyPermission = await pool.query(
             "SELECT * from vfc_set WHERE vfc_user_id = $1 AND vfc_set_id = $2", [userID, vfcSetID]
         );
