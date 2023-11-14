@@ -42,7 +42,7 @@ router.get('/lib', auth, async (req, res) => {
             "SELECT s.vfc_set_id, s.vfc_set_title FROM vfc_user AS u INNER JOIN vfc_set AS s ON u.vfc_user_id = s.vfc_user_id WHERE u.vfc_user_id = $1", [userID]
         );
         privLib = vfcPrivateLib.rows;
-        console.log("vfcPrivateLib: " + vfcPrivateLib);
+        // console.log("vfcPrivateLib: " + vfcPrivateLib);
         // Message for an empty private lib
         if (privLib === undefined) {
             console.log("Personal library is currently empty.");
@@ -146,8 +146,10 @@ router.post("/new_set/", auth, async (req, res) => {
             "INSERT INTO vfc_set (vfc_user_id, vfc_set_title, vfc_set_access) VALUES ($1, $2, $3) RETURNING *",
             [userID, title, access]
         );
-        console.log("New vflashcard set added.");
-        res.send("New vflashcard set added.")
+        const newSetID = newSet.rows[0].vfc_set_id
+        console.log(newSet.rows[0].vfc_set_id);
+        console.log("New vflashcard set added: " + newSetID);
+        res.send("New vflashcard set added: " + newSetID);
     } catch (err) {
         console.log("Error: " + err);
         res.send("Error: " + err);

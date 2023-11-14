@@ -29,8 +29,8 @@ router.post("/signup", async (req, res) => {
         //     }
         // });
 
-        const hash = bcrypt.hash(password, saltRounds)
-        const signup = await pool.query("INSERT INTO vfc_user (vfc_user_fname, vfc_user_lname, vfc_user_email, vfc_user_password) VALUES ($1, $2, $3, $4)", [firstName, lastName, email, password]);
+        const hash = await bcrypt.hash(password, saltRounds)
+        const signup = await pool.query("INSERT INTO vfc_user (vfc_user_fname, vfc_user_lname, vfc_user_email, vfc_user_password) VALUES ($1, $2, $3, $4)", [firstName, lastName, email, hash]);
 
         // console.log("hash: " + hash);
         // console.log(JSON.stringify(signup));
@@ -41,7 +41,7 @@ router.post("/signup", async (req, res) => {
         const getUserID = await pool.query("SELECT * from vfc_user WHERE vfc_user_email = $1", [emailLowerCase]);
 
         // console.log(`newUserID: ${JSON.stringify(getUserID)}`);
-        // const token = tokenGenerator(getUserID.rows[0].vfc_user_id);
+        const token = tokenGenerator(getUserID.rows[0].vfc_user_id);
         // console.log(`token: ${token}`);
         res.json({ token });
 
@@ -63,7 +63,7 @@ router.post("/login", async (req, res) => {
         // if (lookupLogin.rows.length === 0) throw "Invalid login credential";
 
         const lookupLogin = await pool.query("SELECT vfc_user_id, vfc_user_email, vfc_user_password FROM vfc_user WHERE vfc_user_email = $1", [emailLowerCase]);
-        if (lookupLogin.rows.length === 0) throw "Invalid login credential";
+        if (lookupLogin.rows.length === 0) throw "Invalid login email";
 
         const pwHash = lookupLogin.rows[0].vfc_user_password;
         // console.log(pwHash);
