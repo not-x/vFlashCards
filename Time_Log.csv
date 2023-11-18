@@ -135,3 +135,6 @@ After: /lib/:param",Testing & Debugging
 "Monday, November 13, 2023",Review and update project board,30,"Reviewed, updated, and created new tasks (including deliverables). Checked remaining tasks and defined new timeline.",Other
 "Monday, November 13, 2023",Demo-2 prep,90,Continued prepping and revising the script for demo-2. Will need a few run-through to confirm the total time. Perform final review then upload.,Other
 "Monday, November 13, 2023",Work on Demo-2 video,150,Used Zoom. Revised the scripts further. Practiced several times before the outtakes. Completed and uploaded the video.,Other
+"Tuesday, November 14, 2023",Plan out frontend,60,"Drew up a checklist, including high level view, individual files",Research/training/learning
+"Thursday, November 16, 2023",Initialize frontend,120,Initialize the react-app. Deleted unnecessary files. Began creating the skeleton/frame.,Coding
+"Saturday, November 18, 2023",Add boostrap to index.html,0,For responsive websites.,Coding
