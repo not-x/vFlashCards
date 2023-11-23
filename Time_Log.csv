@@ -138,3 +138,6 @@ After: /lib/:param",Testing & Debugging
 "Tuesday, November 14, 2023",Plan out frontend,60,"Drew up a checklist, including high level view, individual files",Research/training/learning
 "Thursday, November 16, 2023",Initialize frontend,120,Initialize the react-app. Deleted unnecessary files. Began creating the skeleton/frame.,Coding
 "Saturday, November 18, 2023",Add boostrap to index.html,0,For responsive websites.,Coding
+"Tuesday, November 21, 2023",Build signup route,120,Began building signup route. Was able to pass information to the backend and create new user account.,Coding
+"Wednesday, November 22, 2023",Office hour with supervisor,60,"Went over question regarding frontend (react-router-dom, authentication).","Supervisor discussion, emails"
+"Wednesday, November 22, 2023",Frontend – home + login,120,"Began working on Home and Login on frontend. Also, deleted redundant SQL user data.",Coding

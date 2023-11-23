@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Signup = (setAuth) => {
+const Signup = ({setAuth}) => {
     const [inputs, setInputs] = useState({
         firstName: "",
         lastName: "",
