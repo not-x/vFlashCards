@@ -1,28 +1,29 @@
 import './App.css';
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router-dom";
-import Login from './components/Login';
-import Signup from './components/Signup';
-import Profile from './components/Profile';
-import Home from './components/Home';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Profile from './pages/Profile';
+import Home from './pages/Home';
+import ProtectedRoute from './routes/ProtectedRoute';
 
-const PrivateRoutes = () => {
-  const isAuth = true;
+// const PrivateRoutes = () => {
+//   const isAuth = true;
 
-  return <>{isAuth ? <Outlet /> : <Navigate to="/" />}</>
-}
+//   return <>{isAuth ? <Outlet /> : <Navigate to="/" />}</>
+// }
 
-const RestrictedRoutes = () => {
-  const isAuth = true;
+// const RestrictedRoutes = () => {
+//   const isAuth = true;
 
-  return <>{!isAuth ? <Outlet /> : <Navigate to='profile' />} </>
-}
+//   return <>{!isAuth ? <Outlet /> : <Navigate to='profile' />} </>
+// }
 
 
 
 
 function App() {
-  const [token, setToken] = useState();
+  // const [token, setToken] = useState();
 
   // if (!token) {
   //   return <Login setToken={setToken} />
@@ -34,9 +35,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          {/* <Route element={<PrivateRoutes />} > */}
-            <Route path="/profile" element={<Profile />} />
-          {/* </Route> */}
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </>

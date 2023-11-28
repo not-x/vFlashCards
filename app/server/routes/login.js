@@ -92,7 +92,7 @@ router.post("/login", async (req, res) => {
     }
 });
 
-router.get("/", authentication, (req, res) => {
+router.get("/checktoken", authentication, (req, res) => {
     try {
         res.json(true);
     } catch (err) {

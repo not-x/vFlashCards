@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Login = ({setAuth}) => {
+const Login = ({setToken}) => {
 
     const [inputs, setInputs] = useState({
         email: "",
@@ -30,7 +30,7 @@ const Login = ({setAuth}) => {
             // console.log(parseResponse);
             localStorage.setItem("token", parseResponse.token);
 
-            setAuth(true);
+            setToken(true);
 
         } catch (err) {
             console.error("Error: " + err);

@@ -1,7 +1,7 @@
 import React from "react";
-import ProfileTitleBar from "./ProfileTitleBar";
-import ProfileNavPane from "./ProfileNavPane";
-import { ProfileMain } from "./ProfileMain";
+import ProfileTitleBar from "../components/ProfileTitleBar";
+import ProfileNavPane from "../components/ProfileNavPane";
+import { ProfileMain } from "../components/ProfileMain";
 
 
 const Profile = () => {

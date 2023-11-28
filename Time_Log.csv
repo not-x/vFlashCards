@@ -146,3 +146,4 @@ After: /lib/:param",Testing & Debugging
 "Saturday, November 25, 2023",Review PM board + checklist,0,-,Other
 "Saturday, November 25, 2023",Research authentication implementation on frontend (cont’d),90,Continued researching ways to implement to authentication.,Research/training/learning
 "Saturday, November 25, 2023",Revise high level plan. Implement skeleton code for Profile.,30,"Profile.js will consists for title bar, nav pane, and body where the main functionality will be displayed.",Coding
+"Sunday, November 26, 2023",Research React Router Dom v6,120,Went over tutorial for v6.,Research/training/learning
