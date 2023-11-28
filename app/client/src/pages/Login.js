@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import { redirect } from "react-router-dom";
+import { useAuth } from "../hook/useAuth";
 
-const Login = ({setToken}) => {
+const Login = () => {
 
     const [inputs, setInputs] = useState({
         email: "",
         password: ""
     });
 
-
+    const auth = useAuth();
     const { email, password } = inputs;
 
     const onChange = e => {
@@ -28,10 +30,10 @@ const Login = ({setToken}) => {
             });
             const parseResponse = await response.json();
             // console.log(parseResponse);
-            localStorage.setItem("token", parseResponse.token);
-
-            setToken(true);
-
+            // localStorage.setItem("token", parseResponse.token);
+            auth.setToken(parseResponse.token);
+            // setToken(true); // issue here
+            return redirect("/profile");
         } catch (err) {
             console.error("Error: " + err);
         }

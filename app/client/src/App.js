@@ -6,6 +6,7 @@ import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
 import ProtectedRoute from './routes/ProtectedRoute';
+import { AuthProvider } from './hook/useAuth';
 
 // const PrivateRoutes = () => {
 //   const isAuth = true;
@@ -29,8 +30,9 @@ function App() {
   //   return <Login setToken={setToken} />
   // }
   return (
-    <>
-      <BrowserRouter>
+
+    <BrowserRouter>
+      <AuthProvider>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -44,8 +46,9 @@ function App() {
             }
           />
         </Routes>
-      </BrowserRouter>
-    </>
+      </AuthProvider>
+    </BrowserRouter>
+
   );
 }
 
