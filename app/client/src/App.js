@@ -8,21 +8,6 @@ import Home from './pages/Home';
 import ProtectedRoute from './routes/ProtectedRoute';
 import { AuthProvider } from './hook/useAuth';
 
-// const PrivateRoutes = () => {
-//   const isAuth = true;
-
-//   return <>{isAuth ? <Outlet /> : <Navigate to="/" />}</>
-// }
-
-// const RestrictedRoutes = () => {
-//   const isAuth = true;
-
-//   return <>{!isAuth ? <Outlet /> : <Navigate to='profile' />} </>
-// }
-
-
-
-
 function App() {
   // const [token, setToken] = useState();
 

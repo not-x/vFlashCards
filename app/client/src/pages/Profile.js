@@ -7,7 +7,7 @@ import { ProfileMain } from "../components/ProfileMain";
 const Profile = () => {
     return (
         <>
-            {/* <h1>Profile</h1> */}
+            <h1>Profile</h1>
             <ProfileTitleBar></ProfileTitleBar>
             <ProfileNavPane></ProfileNavPane>
             <ProfileMain></ProfileMain>

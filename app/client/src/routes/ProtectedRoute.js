@@ -1,17 +1,23 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../hook/useAuth";
 import { redirect } from "react-router-dom";
+import Profile from "../pages/Profile";
 
-const ProtectedRoute = () => {
-    const {token} = useAuth();
+const ProtectedRoute = ({children}) => {
+    // const ProtectedRoute = () => {   
+const { token } = useAuth();
 
-    console.log("token empty?: " + (!token))
-    if (!token) {   // k
-        return <Navigate to ="/login"/>;
-        // return redirect("/profile");
+    console.log("token value?: " + (token))
+    if (!token) {
+        console.log("no token found(" + token + "). Nav to /login")
+        return <Navigate to="/login" />;
     }
-    return <Outlet />;
-    // return redirect("/");
+    console.log("token: " + token);
+    console.log("Should now redirect to /profile");
+    // return <Navigate to="/profile" />;   // returns a blank page?
+    // return <Profile />;      // redirect to profile
+    // return redirect("/profile");    // runtime error
+    return children;
 };
 
 export default ProtectedRoute;

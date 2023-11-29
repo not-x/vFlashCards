@@ -146,4 +146,8 @@ After: /lib/:param",Testing & Debugging
 "Saturday, November 25, 2023",Review PM board + checklist,0,-,Other
 "Saturday, November 25, 2023",Research authentication implementation on frontend (cont’d),90,Continued researching ways to implement to authentication.,Research/training/learning
 "Saturday, November 25, 2023",Revise high level plan. Implement skeleton code for Profile.,30,"Profile.js will consists for title bar, nav pane, and body where the main functionality will be displayed.",Coding
-"Sunday, November 26, 2023",Research React Router Dom v6,120,Went over tutorial for v6.,Research/training/learning
+"Sunday, November 26, 2023",Research React Router Dom v6,120,Reviewed tutorial for v6.,Research/training/learning
+"Monday, November 27, 2023",Frontend – authentication,120,Code the helper function.,Coding
+"Tuesday, November 28, 2023",Frontend – authentication debugging,60,Continued debugging the helper function.,Testing & Debugging
+"Tuesday, November 28, 2023",Office hour with supervisor,45,Worked on frontend authentication and was able to set localstorage with the returned token. Protected route is not redirecting to the profile.,"Supervisor discussion, emails"
+"Tuesday, November 28, 2023",Frontend – Login page and private route,90,Continued working on the protected route and login. Unable to get login to redirect to the profile page after submission.,Testing & Debugging

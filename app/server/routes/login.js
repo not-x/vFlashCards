@@ -56,7 +56,8 @@ router.post("/login", async (req, res) => {
         const { email, password } = req.body;
         console.log(email + "/" + password);
 
-        if (email === undefined || password === undefined) throw "Missing credential";
+        // if (email === undefined || password === undefined) throw "Missing credential";
+        if (email.length === 0 || password.length === 0) throw "Missing credential";
 
         const emailLowerCase = email.toLowerCase();
         // const lookupLogin = await pool.query("SELECT vfc_user_email FROM vfc_user WHERE vfc_user_email = $1 AND vfc_user_password = $2", [email, password]);

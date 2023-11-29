@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { redirect } from "react-router-dom";
+import { Navigate, redirect } from "react-router-dom";
 import { useAuth } from "../hook/useAuth";
 
 const Login = () => {
@@ -20,7 +20,7 @@ const Login = () => {
         e.preventDefault();
         try {
             const body = { email, password };
-            console.log(JSON.stringify(body));
+            // console.log(JSON.stringify(body));
             const response = await fetch("http://localhost:8000/auth/login", {
                 method: "POST",
                 headers: {
@@ -33,7 +33,12 @@ const Login = () => {
             // localStorage.setItem("token", parseResponse.token);
             auth.setToken(parseResponse.token);
             // setToken(true); // issue here
-            return redirect("/profile");
+            // console.log(auth);
+            console.log("Token set");
+            console.log("Should redirect to profile");
+
+            // return redirect("/profile");
+            // return <Navigate to="/profile" />;
         } catch (err) {
             console.error("Error: " + err);
         }
