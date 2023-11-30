@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = ({setAuth}) => {
+    const navigate = useNavigate();
     const [inputs, setInputs] = useState({
         firstName: "",
         lastName: "",
@@ -30,7 +32,8 @@ const Signup = ({setAuth}) => {
             // console.log(parseResponse);
             localStorage.setItem("token", parseResponse.token);
 
-            setAuth(true);
+            // setAuth(true);
+            navigate('/profile');
 
         } catch (err) {
             console.error("Error: " + err);

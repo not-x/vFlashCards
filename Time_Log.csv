@@ -151,3 +151,5 @@ After: /lib/:param",Testing & Debugging
 "Tuesday, November 28, 2023",Frontend – authentication debugging,60,Continued debugging the helper function.,Testing & Debugging
 "Tuesday, November 28, 2023",Office hour with supervisor,45,Worked on frontend authentication and was able to set localstorage with the returned token. Protected route is not redirecting to the profile.,"Supervisor discussion, emails"
 "Tuesday, November 28, 2023",Frontend – Login page and private route,90,Continued working on the protected route and login. Unable to get login to redirect to the profile page after submission.,Testing & Debugging
+"Wednesday, November 29, 2023","Frontend – Login page, signup page, private route",120,"Continued debugging the code. Able to get the login, sign up page to redirect to the profile page after setting token with the local storage.",Testing & Debugging
+"Wednesday, November 29, 2023",Debug signup route,30,"Issue with the signup route, which took zero length string as input but has been corrected.",Testing & Debugging

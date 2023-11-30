@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Navigate, redirect } from "react-router-dom";
+import { Navigate, redirect, useNavigate } from "react-router-dom";
 import { useAuth } from "../hook/useAuth";
 
 const Login = () => {
-
+    const navigate = useNavigate();
     const [inputs, setInputs] = useState({
         email: "",
         password: ""
@@ -19,6 +19,7 @@ const Login = () => {
     const onSubmitForm = async e => {
         e.preventDefault();
         try {
+
             const body = { email, password };
             // console.log(JSON.stringify(body));
             const response = await fetch("http://localhost:8000/auth/login", {
@@ -31,14 +32,19 @@ const Login = () => {
             const parseResponse = await response.json();
             // console.log(parseResponse);
             // localStorage.setItem("token", parseResponse.token);
+            // if (!parseResponse) throw "Invalid login";
+
             auth.setToken(parseResponse.token);
             // setToken(true); // issue here
             // console.log(auth);
             console.log("Token set");
             console.log("Should redirect to profile");
+            // return redirect("/profile");    // doesn't work
+            // redirect('/profile');            // doesn't work
+            navigate('/profile');
 
-            // return redirect("/profile");
-            // return <Navigate to="/profile" />;
+            
+
         } catch (err) {
             console.error("Error: " + err);
         }

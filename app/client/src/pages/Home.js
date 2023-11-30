@@ -1,5 +1,5 @@
 import React from "react";
-import Login from './Login';
+import { Link } from "react-router-dom";
 
 const Home = () => {
     return (
@@ -10,8 +10,8 @@ const Home = () => {
                 <p>Study aids on the go.</p>
             </div>
             <div>
-                <p>Login</p>
-                <p>Signup</p>
+                <Link to="/login">Login</Link>
+                <Link to="/signup">Signup</Link>
             </div>
         </>
     );

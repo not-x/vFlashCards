@@ -4,16 +4,16 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const tokenGenerator = require("../tokenGenerator");
 const authentication = require('../auth');
-const { sign } = require("jsonwebtoken");
+// const { sign } = require("jsonwebtoken");
 
 router.post("/signup", async (req, res) => {
     try {
         const { firstName, lastName, email, password } = req.body;
         // console.log(firstName);
         if (firstName === undefined || firstName.length === 0) console.log("Note - First name is missing but optional.");
-        if (lastName === undefined) throw "Missing last name";
-        if (email === undefined) throw "Missing email";
-        if (password === undefined) throw "Missing password";
+        if (lastName === undefined || lastName.length === 0) throw "Missing last name";
+        if (email === undefined || email.length === 0) throw "Missing email";
+        if (password === undefined || password.length === 0) throw "Missing password";
 
         const emailLowerCase = email.toLowerCase();
         // console.log("email: " + email + "\t" + "lowerCase: " + emailLowerCase);
