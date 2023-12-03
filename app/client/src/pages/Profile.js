@@ -1,16 +1,65 @@
 import React from "react";
-import ProfileTitleBar from "../components/ProfileTitleBar";
-import ProfileNavPane from "../components/ProfileNavPane";
-import { ProfileMain } from "../components/ProfileMain";
+import { Routes, Route, Link, NavLink } from "react-router-dom";
+import PrivateLib from "./profile/PrivateLib"
+import PublicLib from "./profile/PublicLib"
+import AddNewSet from "./profile/AddNewSet"
 
+
+function Navigation() {
+  return (
+    <nav className="navbar navbar-expand-sm navbar-dark bg-dark shadow mb-3">
+      <div className="container-fluid">
+        <Link className="navbar-brand" to="/profile">
+          vFlashCards
+        </Link>
+        <ul className="navbar-nav me-auto">
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/lib">
+              Personal Library
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/pub_lib">
+              Public Library
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/new_set">
+              Create a New Set
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/">
+              Logout
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
+}
 
 const Profile = () => {
-    return (
-        <>
-            <ProfileTitleBar></ProfileTitleBar>
-            <ProfileNavPane></ProfileNavPane>
-            <ProfileMain></ProfileMain>
-        </>
-    );
+  return (
+    // NavPane - Top
+    // 1. Private library
+    //  a. Individual card set (1 by 1)
+    // 2. Public library
+    //  a. Individual card set (1 by 1)
+    // 3. Create new library
+    //  a. Create new set (title)
+    //   i. Create new card
+    //    - Save
+    //    - Continue creating card under EXISTING set  
+    // Body - Right
+    <>
+      <Navigation />
+      <Routes>
+        <Route path="/lib" element={<PrivateLib />} />
+        <Route path="/pub_lib" element={<PublicLib />} />
+        <Route path="/new_set" element={<AddNewSet />} />
+      </Routes>
+    </>
+  );
 }
 export default Profile;

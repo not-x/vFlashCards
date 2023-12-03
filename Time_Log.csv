@@ -153,3 +153,6 @@ After: /lib/:param",Testing & Debugging
 "Tuesday, November 28, 2023",Frontend – Login page and private route,90,Continued working on the protected route and login. Unable to get login to redirect to the profile page after submission.,Testing & Debugging
 "Wednesday, November 29, 2023","Frontend – Login page, signup page, private route",120,"Continued debugging the code. Able to get the login, sign up page to redirect to the profile page after setting token with the local storage.",Testing & Debugging
 "Wednesday, November 29, 2023",Debug signup route,30,"Issue with the signup route, which took zero length string as input but has been corrected.",Testing & Debugging
+"Saturday, December 2, 2023",Revise design document,0,Done to reflect the team status.,Other
+"Saturday, December 2, 2023",Code profile page,180,Worked on profile page. Added new pages.,Coding
+"Saturday, December 2, 2023",Review React Router Dom v6,90,Read up on documentation,Research/training/learning

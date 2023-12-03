@@ -55,7 +55,7 @@ const Signup = ({setAuth}) => {
                     </div>
                     <input type="email" name="email" placeholder="name@example.com" className="form-control my-2" value={email} onChange={e => onChange(e)} />
                     <input type="password" name="password" placeholder="password" className="form-control my-2" value={password} onChange={e => onChange(e)} />
-                    <button className="btn btn-success btn block">Create new account</button>
+                    <button className="btn btn-primary btn block">Create new account</button>
                 </form>
             </div>
         </>
