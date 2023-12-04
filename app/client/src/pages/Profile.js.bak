@@ -1,6 +1,10 @@
 import React from "react";
-import { Routes, Route, Link, NavLink, useOutlet, Navigate } from "react-router-dom";
-import { useAuth } from "../hook/useAuth";
+import { Routes, Route, Link, NavLink, useOutlet} from "react-router-dom";
+import PrivateLib from "./profile/PrivateLib"
+import PublicLib from "./profile/PublicLib"
+import AddNewSet from "./profile/AddNewSet"
+import Logout from "./profile/Logout"
+// import {logout} from "../hook/useAuth"
 
 
 function Navigation() {
@@ -12,17 +16,17 @@ function Navigation() {
         </Link>
         <ul className="navbar-nav me-auto">
           <li className="nav-item">
-            <NavLink className="nav-link" to="/profile/lib">
+            <NavLink className="nav-link" to="/lib">
               Personal Library
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/profile/pub_lib">
+            <NavLink className="nav-link" to="/pub_lib">
               Public Library
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/profile/new">
+            <NavLink className="nav-link" to="/new_set">
               Create a New Set
             </NavLink>
           </li>
@@ -39,15 +43,6 @@ function Navigation() {
 
 const Profile = () => {
   const outlet = useOutlet();
-  const { token } = useAuth();
-
-  // console.log("token value?: " + (token))
-  if (!token) {
-    console.log("no token found(" + token + "). Nav to /login")
-    return <Navigate to="/login" />;
-  }
-
-
   return (
     // NavPane - Top
     // 1. Private library
@@ -60,10 +55,15 @@ const Profile = () => {
     //    - Save
     //    - Continue creating card under EXISTING set  
     // Body - Right
-    <div>
+    <>
       <Navigation />
-      {outlet}
-    </div>
+      <Routes>
+        <Route path="/lib" element={<PrivateLib />} />
+        <Route path="/pub_lib" element={<PublicLib />} />
+        <Route path="/new_set" element={<AddNewSet />} />
+        <Route path="/logout" element={<Logout />} />
+      </Routes>
+    </>
   );
 }
 export default Profile;

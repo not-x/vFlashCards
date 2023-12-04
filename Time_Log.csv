@@ -156,3 +156,6 @@ After: /lib/:param",Testing & Debugging
 "Saturday, December 2, 2023",Revise design document,0,Done to reflect the team status.,Other
 "Saturday, December 2, 2023",Code profile page,180,Worked on profile page. Added new pages.,Coding
 "Saturday, December 2, 2023",Review React Router Dom v6,90,Read up on documentation,Research/training/learning
+"Sunday, December 3, 2023",Follow up React Router Dom v6 doc,75,Reviewed documentation.,Research/training/learning
+"Sunday, December 3, 2023",Frontend – Home/Landing Page route,45,Added navigation. Modified the route under App.js,Coding
+"Sunday, December 3, 2023",Frontend – Profile,75,Reworked Profile. Modified route under App.js. Added skeleton pages. Completed Logout page.,Coding

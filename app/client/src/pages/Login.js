@@ -53,8 +53,8 @@ const Login = () => {
 
     return (
         <>
-            <div className="container-md p-4 my-5 border overflow-hidden" >
-                <h1 className="text-center">vFlashCards Login</h1>
+            <div className="container-md p-3 my-3 overflow-hidden" >
+                {/* <h1 className="text-center">vFlashCards Login</h1> */}
                 <form onSubmit={onSubmitForm}>
                     <input type="email" name="email" placeholder="name@example.com" className="form-control my-2" value={email} onChange={e => onChange(e)} />
                     <input type="password" name="password" placeholder="password" className="form-control my-2" value={password} onChange={e => onChange(e)} />
