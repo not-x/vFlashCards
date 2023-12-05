@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
@@ -9,7 +9,7 @@ import PrivateLib from './pages/profile/PrivateLib.js';
 import PublicLib from './pages/profile/PublicLib.js';
 import AddNewSet from './pages/profile/AddNewSet';
 import Logout from './pages/profile/Logout'
-import ProtectedRoute from './routes/ProtectedRoute';
+// import ProtectedRoute from './routes/ProtectedRoute';
 import { AuthProvider } from './hook/useAuth';
 import Test from './pages/profile/PrivateLibTest';
 

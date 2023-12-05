@@ -13,7 +13,7 @@ router.get('/pub_lib', auth, async (req, res) => {
         //     "SELECT vfc_set_title FROM vfc_set WHERE vfc_set_view_access = 'public'");
 
         const vfcPublicLib = await pool.query(
-            "SELECT u.vfc_user_fname, u.vfc_user_lname, s.vfc_set_title, s.vfc_set_access FROM vfc_user AS u LEFT JOIN vfc_set AS s ON u.vfc_user_id = s.vfc_user_id WHERE s.vfc_set_access = 'public'"
+            "SELECT u.vfc_user_fname, u.vfc_user_lname, s.vfc_set_title, s.vfc_set_access, s.vfc_set_id FROM vfc_user AS u LEFT JOIN vfc_set AS s ON u.vfc_user_id = s.vfc_user_id WHERE s.vfc_set_access = 'public'"
         );
         pubLib = vfcPublicLib.rows;
         // console.log(pubLib);
@@ -48,7 +48,8 @@ router.get('/lib', auth, async (req, res) => {
             console.log("Personal library is currently empty.");
             res.send("Personal library is currently empty.");
         } else {
-            console.log("Current library: " + JSON.stringify(privLib));
+            // console.log("Current library: " + JSON.stringify(privLib));
+            console.log(typeof (privLib))
             res.send(privLib);
             // res.json(privLib);
         }
@@ -306,7 +307,7 @@ router.put("/lib/:vfcSetID", auth, async (req, res) => {
 router.put("/lib/:vfcSetID/card/", auth, async (req, res) => {
     try {
         const userID = req.user;
-        const {vfcSetID} = req.params;
+        const { vfcSetID } = req.params;
         const { vfcID, question, answer } = req.body;
 
         if (vfcID === undefined) throw "vFlashCard ID not provided. Please retry."
@@ -321,7 +322,7 @@ router.put("/lib/:vfcSetID/card/", auth, async (req, res) => {
         if (verifyAccess.rows.length === 0) throw "403 - Forbidden";
 
         console.log("Matching user + setID");
-        
+
         const verifyCard = await pool.query(
             "SELECT * FROM vfc WHERE vfc_set_id = $1 AND vfc_id = $2",
             [vfcSetID, vfcID]

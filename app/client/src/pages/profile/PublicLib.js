@@ -35,7 +35,8 @@ function PublicLib() {
         <div className="container-fluid text-center">
             <div className="row justify-content-center">
                 {cardSets.map((entryData) => (
-                    <CardSet {...entryData} key={entryData.id} />
+                    // console.log(entryData),
+                    <CardSet {...entryData} key={entryData.vfc_set_id} />
                 ))}
             </div>
         </div>
