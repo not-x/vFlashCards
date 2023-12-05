@@ -158,4 +158,7 @@ After: /lib/:param",Testing & Debugging
 "Saturday, December 2, 2023",Review React Router Dom v6,90,Read up on documentation,Research/training/learning
 "Sunday, December 3, 2023",Follow up React Router Dom v6 doc,75,Reviewed documentation.,Research/training/learning
 "Sunday, December 3, 2023",Frontend – Home/Landing Page route,45,Added navigation. Modified the route under App.js,Coding
-"Sunday, December 3, 2023",Frontend – Profile,75,Reworked Profile. Modified route under App.js. Added skeleton pages. Completed Logout page.,Coding
+"Sunday, December 3, 2023",Frontend – Profile,75,Reworked Profile. Modified route under App.js. Completed Logout page.,Coding
+"Monday, December 4, 2023",Frontend – Debug fetch and relative path,30,Unable to use relative path with fetch. Added proxy to package.json to resolve.,Testing & Debugging
+"Monday, December 4, 2023",Frontend – Private library,180,Began work on private lib route. Page is throwing errors but works with page refresh.,Coding
+"Monday, December 4, 2023",Frontend – Public Library,30,Began work on public lib route. Similar issue with private library.,Coding

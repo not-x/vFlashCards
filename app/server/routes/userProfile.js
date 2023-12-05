@@ -13,7 +13,7 @@ router.get('/pub_lib', auth, async (req, res) => {
         //     "SELECT vfc_set_title FROM vfc_set WHERE vfc_set_view_access = 'public'");
 
         const vfcPublicLib = await pool.query(
-            "SELECT u.vfc_user_fname, u.vfc_user_lname, s.vfc_set_title FROM vfc_user AS u LEFT JOIN vfc_set AS s ON u.vfc_user_id = s.vfc_user_id WHERE s.vfc_set_access = 'public'"
+            "SELECT u.vfc_user_fname, u.vfc_user_lname, s.vfc_set_title, s.vfc_set_access FROM vfc_user AS u LEFT JOIN vfc_set AS s ON u.vfc_user_id = s.vfc_user_id WHERE s.vfc_set_access = 'public'"
         );
         pubLib = vfcPublicLib.rows;
         // console.log(pubLib);
@@ -39,7 +39,7 @@ router.get('/lib', auth, async (req, res) => {
         userID = req.user;
         console.log(`UserID: ${userID}`);
         const vfcPrivateLib = await pool.query(
-            "SELECT s.vfc_set_id, s.vfc_set_title FROM vfc_user AS u INNER JOIN vfc_set AS s ON u.vfc_user_id = s.vfc_user_id WHERE u.vfc_user_id = $1", [userID]
+            "SELECT s.vfc_set_id, s.vfc_set_title, s.vfc_set_access FROM vfc_user AS u INNER JOIN vfc_set AS s ON u.vfc_user_id = s.vfc_user_id WHERE u.vfc_user_id = $1", [userID]
         );
         privLib = vfcPrivateLib.rows;
         // console.log("vfcPrivateLib: " + vfcPrivateLib);

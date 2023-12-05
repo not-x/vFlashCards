@@ -58,8 +58,8 @@ const Profile = () => {
     //  a. Create new set (title)
     //   i. Create new card
     //    - Save
-    //    - Continue creating card under EXISTING set  
-    // Body - Right
+    //    - Continue creating card under EXISTING set
+    
     <div>
       <Navigation />
       {outlet}

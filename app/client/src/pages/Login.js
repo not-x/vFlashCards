@@ -22,12 +22,13 @@ const Login = () => {
 
             const body = { email, password };
             // console.log(JSON.stringify(body));
-            const response = await fetch("http://localhost:8000/auth/login", {
+            // const response = await fetch("http://localhost:8000/auth/login", {
+            const response = await fetch("/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(body)
+                body: JSON.stringify(body),
             });
             const parseResponse = await response.json();
             // console.log(parseResponse);
@@ -43,7 +44,7 @@ const Login = () => {
             // redirect('/profile');            // doesn't work
             navigate('/profile');
 
-            
+
 
         } catch (err) {
             console.error("Error: " + err);

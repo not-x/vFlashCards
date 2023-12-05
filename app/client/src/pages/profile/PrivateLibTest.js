@@ -3,7 +3,7 @@ import CardSet from "../../components/CardSet"
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useParams } from "react-router-dom";
 
-function PublicLib() {
+function PrivateLib() {
     const [cardSets, setCardSets] = useState([]);
     const [loading, setLoading] = useState(true);
     let params = useParams();
@@ -12,7 +12,7 @@ function PublicLib() {
         async function getData() {
             setLoading(true)
             try {
-                let response = await fetch("/profile/pub_lib",
+                let response = await fetch("/profile/lib",
                     {
                         method: "GET",
                         headers: { token: localStorage.token }
@@ -21,7 +21,7 @@ function PublicLib() {
                 setCardSets(postData);
                 setLoading(false);
             } catch (err) {
-                console.error("Error fetching /profile/pub_lib" + params.id, err);
+                console.error("Error fetching /profile/lib" + params.id, err);
             }
         }
         getData();
@@ -31,14 +31,16 @@ function PublicLib() {
 
     if (loading) return <LoadingSpinner />;
     // return <CardSet {...cardSets} key={cardSets.id}/>;
+    // console.log(cardSets.map)
     return (
         <div className="container-fluid text-center">
             <div className="row justify-content-center">
                 {cardSets.map((entryData) => (
                     <CardSet {...entryData} key={entryData.id} />
+                    // <CardSet {...entryData}  />
                 ))}
             </div>
         </div>
     )
 }
-export default PublicLib
+export default PrivateLib

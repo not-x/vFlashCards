@@ -5,12 +5,13 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
-import PrivateLib from './pages/profile/PrivateLib';
-import PublicLib from './pages/profile/PublicLib';
+import PrivateLib from './pages/profile/PrivateLib.js';
+import PublicLib from './pages/profile/PublicLib.js';
 import AddNewSet from './pages/profile/AddNewSet';
 import Logout from './pages/profile/Logout'
 import ProtectedRoute from './routes/ProtectedRoute';
 import { AuthProvider } from './hook/useAuth';
+import Test from './pages/profile/PrivateLibTest';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
           <Route element={<Profile />}>
             <Route path="/profile" element={< PrivateLib />} />
             <Route path="/profile/lib" element={<PrivateLib />} />
+            <Route path="/profile/test" element={<Test />} />
             <Route path="/profile/pub_lib" element={<PublicLib />} />
             <Route path="/profile/new" element={<AddNewSet />} />
             <Route path="/logout" element={<Logout />} />

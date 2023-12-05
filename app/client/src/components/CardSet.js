@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Card({ vfc_set_id, vfc_set_title, vfc_set_access }) {
+function CardSet({ vfc_set_id, vfc_set_title, vfc_set_access }) {
   return (
     <div className="col-10 col-md-8 col-lg-7">
       <div className="card mb-4 shadow">
@@ -14,4 +14,4 @@ function Card({ vfc_set_id, vfc_set_title, vfc_set_access }) {
   );
 }
 
-export default Card;
+export default CardSet;
