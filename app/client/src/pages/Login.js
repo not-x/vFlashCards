@@ -35,7 +35,7 @@ const Login = () => {
             // localStorage.setItem("token", parseResponse.token);
             // if (!parseResponse) throw "Invalid login";
 
-            auth.setToken(parseResponse.token);
+            await auth.setToken(parseResponse.token);
             // setToken(true); // issue here
             // console.log(auth);
             console.log("Token set");

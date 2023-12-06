@@ -18,20 +18,26 @@ export const AuthProvider = ({ children }) => {
   const setToken = async (token) => {
     setToken_(token);
     // localStorage.setItem('token', token);
-  }
-
-  useEffect(() => {
     if (token) {
       localStorage.setItem('token', token);
     } else {
       localStorage.removeItem('token')
     }
-  }, [token]);
+    return
+  }
+
+  // useEffect(() => {
+  //   if (token) {
+  //     localStorage.setItem('token', token);
+  //   } else {
+  //     localStorage.removeItem('token')
+  //   }
+  // }, [token]);
 
 
-  const logout = () => {
+  const logout = async () => {
     // localStorage.removeItem('token')
-    setToken(null);
+    await setToken(null);
     navigate("/", { replace: true });
   };
 
