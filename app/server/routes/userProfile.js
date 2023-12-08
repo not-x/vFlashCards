@@ -62,6 +62,7 @@ router.get('/lib', auth, async (req, res) => {
 // Get cards from a personal/private vfc_set
 router.get("/lib/:vfcSetID", auth, async (req, res) => {
     const userID = req.user;
+    console.log("Get card route (private:");
     try {
         const { vfcSetID } = req.params;
         console.log(vfcSetID);

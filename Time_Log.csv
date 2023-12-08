@@ -162,3 +162,8 @@ After: /lib/:param",Testing & Debugging
 "Monday, December 4, 2023",Frontend – Debug fetch and relative path,30,Unable to use relative path with fetch. Added proxy to package.json to resolve.,Testing & Debugging
 "Monday, December 4, 2023",Frontend – Private library,180,Began work on private lib route. Page is throwing errors but works with page refresh.,Coding
 "Monday, December 4, 2023",Frontend – Public Library,30,Began work on public lib route. Similar issue with private library.,Coding
+"Monday, December 4, 2023",Frontend – Debug private/public libraries,75,Continued debugging without success.,Testing & Debugging
+"Tuesday, December 5, 2023",Office hour with supervisor,60,Worked on the issue pertaining to cardSet.map. Root cause was due to the async nature of setting local sessions. Added await to in Login and amended useAuth (useEffect is no longer used.),"Supervisor discussion, emails"
+"Thursday, December 7, 2023",Frontend – Private card set,150,Build page to show cards from a single set.,Coding
+"Thursday, December 7, 2023",Office hour with supervisor,30,"Received advice and recommendation to approach individual card display, including change state and toggle, also navigation.","Supervisor discussion, emails"
+"Thursday, December 7, 2023","Frontend – Revise private & public library, private set",30,"For libraries, added condition to display empty library when empty. Also for private set, added condition to display empty set or existing title.",Coding

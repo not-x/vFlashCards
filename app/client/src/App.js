@@ -7,6 +7,7 @@ import Profile from './pages/Profile';
 import Home from './pages/Home';
 import PrivateLib from './pages/profile/PrivateLib.js';
 import PublicLib from './pages/profile/PublicLib.js';
+import PrivSet from './pages/profile/PrivSet.js'
 import AddNewSet from './pages/profile/AddNewSet';
 import Logout from './pages/profile/Logout'
 // import ProtectedRoute from './routes/ProtectedRoute';
@@ -32,6 +33,7 @@ function App() {
           <Route element={<Profile />}>
             <Route path="/profile" element={< PrivateLib />} />
             <Route path="/profile/lib" element={<PrivateLib />} />
+            <Route path="/profile/lib/:id/" element={<PrivSet/>} />
             <Route path="/profile/test" element={<Test />} />
             <Route path="/profile/pub_lib" element={<PublicLib />} />
             <Route path="/profile/new" element={<AddNewSet />} />
