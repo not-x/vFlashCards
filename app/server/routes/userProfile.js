@@ -80,7 +80,8 @@ router.get("/lib/:vfcSetID", auth, async (req, res) => {
         // console.log(getCards);
         if (getCards.rows.length === 0) {
             console.log("No cards found");
-            res.json("No cards found.");
+            // res.json("No cards found.");
+            res.json(getCards.rows)
         } else {
             console.log("No error found");
             // console.log(JSON.stringify(getCards));
@@ -114,7 +115,8 @@ router.get("/pub_lib/:vfcSetID", auth, async (req, res) => {
 
         if (vfcList.rows.length === 0) {
             console.log("Card set is empty.");
-            res.json("Card set is empty.");
+            // res.json("Card set is empty.");
+            res.json(vfcList.rows)
         } else {
             console.log(vfcList.rows);
             res.json(vfcList.rows)

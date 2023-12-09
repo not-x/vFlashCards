@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CardSet from "../../components/CardSet"
+import CardSetPub from "../../components/CardSetPub"
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useParams } from "react-router-dom";
 
@@ -18,12 +18,14 @@ function PublicLib() {
                         headers: { token: localStorage.token }
                     });
                 let postData = await response.json();
+                // console.log(postData)
                 setCardSets(postData);
                 setLoading(false);
             } catch (err) {
                 console.error("Error fetching /profile/pub_lib" + params.id, err);
             }
         }
+        console.log("Inside PubLib. Getting data");
         getData();
         return () => {
         };
@@ -37,7 +39,7 @@ function PublicLib() {
                 <h5>{cardSets.length === 0 ? "Library is currently empty.": "" }</h5>
                 {cardSets.map((entryData) => (
                     // console.log(entryData),
-                    <CardSet {...entryData} key={entryData.vfc_set_id} />
+                    <CardSetPub {...entryData} key={entryData.vfc_set_id} />
                 ))}
             </div>
         </div>

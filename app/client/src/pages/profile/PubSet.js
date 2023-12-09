@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Card from "../../components/Card"
+import CardPub from "../../components/CardPub"
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ErrorAlert from "../../components/ErrorAlert";
 import { useParams } from "react-router-dom";
 
-function PrivSet() {
+function PubSet() {
     const [card, setCard] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -14,7 +14,7 @@ function PrivSet() {
         async function getData() {
             setLoading(true)
             try {
-                let response = await fetch("/profile/lib/" + params.id,
+                let response = await fetch("/profile/pub_lib/" + params.id,
                     {
                         method: "GET",
                         headers: { token: localStorage.token }
@@ -23,13 +23,11 @@ function PrivSet() {
                 setCard(postData);
                 setLoading(false);
             } catch (err) {
-                console.error("Error fetching /profile/lib/" + params.id, err);
+                console.error("Error fetching /profile/pub_lib/" + params.id, err);
                 setError(true);
             }
         }
         getData();
-        console.log("PrivSet route - type: " + typeof(card))
-        console.log("PrivSet route - length: " + card.length)
         return () => {
         };
     }, [params.id]);
@@ -41,14 +39,14 @@ function PrivSet() {
     return (
         <div className="container-fluid text-center">
             <div className="row justify-content-center">
-                <p>{(card === null || card.length === 0) ? "Empty Set. Time to add some cards?" : card[0].vfc_set_title}</p>
+                <p>{card.length === 0 ? "Empty Set. Author has not added any cards yet." : card[0].vfc_set_title}</p>
                 {card.map((entryData) => (
                     console.log("entryData: " + entryData.vfc_set_title),
-                    <Card {...entryData} key={entryData.vfc_id} />
+                    <CardPub {...entryData} key={entryData.vfc_id} />
                     // <CardSet {...entryData}  />
                 ))}
             </div>
         </div>
     );
 }
-export default PrivSet
+export default PubSet

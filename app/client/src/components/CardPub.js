@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 
-function Card({ vfc_set_title, vfc_set_id, vfc_id, vfc_question, vfc_answer }) {
+function CardPub({ vfc_set_title, vfc_set_id, vfc_id, vfc_question, vfc_answer, vfc_set_access }) {
 
   const [side, setSide] = useState(vfc_question);
   // console.log("Current side: " + side + " Type: " + typeof(side))
@@ -18,6 +18,7 @@ function Card({ vfc_set_title, vfc_set_id, vfc_id, vfc_question, vfc_answer }) {
     console.log("Card has been set to: " + side)
 
   }
+  console.log("access: " + {vfc_set_access})
 
 
   return (
@@ -27,12 +28,12 @@ function Card({ vfc_set_title, vfc_set_id, vfc_id, vfc_question, vfc_answer }) {
           {/* <Link to={"/profile/lib/" + vfc_set_id}>{vfc_question}</Link> */}
           {side}
         </div>
-        <button className="btn btn-outline-primary btn-sm" onClick={handleClick}>Flip Card</button>
+        <button className="btn btn-outline-success btn-sm" onClick={handleClick}>Flip Card</button>
 
-        <div className="card-footer small text-muted text-end">Card#: {vfc_id}</div>
+        <div className="card-footer small text-muted text-end">Access: Public</div>
       </div>
     </div>
   );
 }
 
-export default Card;
+export default CardPub;
