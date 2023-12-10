@@ -35,10 +35,10 @@ function App() {
           <Route element={<Profile />}>
             <Route path="/profile" element={< PrivateLib />} />
             <Route path="/profile/lib" element={<PrivateLib />} />
-            <Route path="/profile/lib/:id/" element={<PrivSet/>} />
+            <Route path="/profile/lib/:id/" element={<PrivSet />} />
             <Route path="/profile/test" element={<Test />} />
             <Route path="/profile/pub_lib" element={<PublicLib />} />
-            <Route path="/profile/pub_lib/:id/" element={<PubSet/>} />
+            <Route path="/profile/pub_lib/:id/" element={<PubSet />} />
             <Route path="/profile/new" element={<NewCardSet />} />
             <Route path="/profile/new/:id" element={<NewCard />} />
             <Route path="/logout" element={<Logout />} />

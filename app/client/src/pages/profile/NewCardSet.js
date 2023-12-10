@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Routes, Route } from "react-router-dom";
 import ErrorAlert from "../../components/ErrorAlert";
 import { useParams } from "react-router-dom";
+import NewCard from "./NewCard";
 
 function NewCardSet() {
     const [inputs, setInputs] = useState({
@@ -14,7 +15,8 @@ function NewCardSet() {
     const { title, access } = inputs;
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
-    const params = useParams();
+    const [cardInfo, setCardInfo] = useState()
+    let params = useParams();
 
     const onChange = e => {
         setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -42,12 +44,16 @@ function NewCardSet() {
 
             // console.log("response ok? (response.ok): " + response.ok)
             // console.log("response type: " + typeof(response));
-            const cardSetID = await response.json()
-            console.log("cardsetID: " + cardSetID)
+            const cardSet = await response.json()
+            // console.log("cardsetID: " + cardSet.vfc_set_id)
+            // console.log("cardSet: " + JSON.stringify(cardSet))
+            setCardInfo(cardSet);
+            
 
             if (response.ok) {
                 setSuccess(true);
-                navigate('/profile/new/' + cardSetID);
+                navigate('/profile/new/' + (cardSet.vfc_set_id));
+                // navigate('/profile/new/' + params.id);
             } else {
                 setError(true);
             }
@@ -56,7 +62,7 @@ function NewCardSet() {
             setError(true);
         }
     };
-
+    // console.log(params.id)
     // if (success) navigate('/profile/new/' + params.id);
 
     return (
