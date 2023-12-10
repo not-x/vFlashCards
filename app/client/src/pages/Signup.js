@@ -20,8 +20,8 @@ const Signup = ({setAuth}) => {
         e.preventDefault();
         try {
             const body = { firstName, lastName, email, password };
-            console.log(JSON.stringify(body));
-            const response = await fetch("http://localhost:8000/auth/signup", {
+            // console.log(JSON.stringify(body));
+            const response = await fetch("/auth/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

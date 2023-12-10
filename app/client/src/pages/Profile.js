@@ -23,7 +23,7 @@ function Navigation() {
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/profile/new">
-              Create a New Set
+              Create New Card Set
             </NavLink>
           </li>
           <li className="nav-item">

@@ -131,13 +131,22 @@ router.get("/pub_lib/:vfcSetID", auth, async (req, res) => {
 // Create new vfc_set
 router.post("/new_set/", auth, async (req, res) => {
     try {
+        console.log("create new set route:")
         const userID = req.user;
         const { title, access } = req.body;
-        if (title === undefined) throw "Missing title";
-        if (access === undefined) throw "Missing access type. (public/private)"
+        // console.log("userid: " +  userID)
+        console.log("title: " + title)
+        console.log("access: " + access)
+        if (title === undefined || title.length === 0) throw "Missing title";
+        // if (access === undefined || access.length === 0) throw "Missing access type. (Enter public/private.)"
+        
         // const findDuplicateTitle = await pool.query(
         //     "SELECT vfc_set_title FROM vfc_set WHERE vfc_set_title = $1", [title]
         // );
+
+        const setAccess = (access === undefined || access.length === 0 ? "private" : access);
+
+        
         const findDuplicateTitle = await pool.query(
             "SELECT vfc_set_title FROM vfc_set WHERE vfc_user_id = $1 AND vfc_set_title = $2", [userID, title]
         );
@@ -148,15 +157,16 @@ router.post("/new_set/", auth, async (req, res) => {
 
         const newSet = await pool.query(
             "INSERT INTO vfc_set (vfc_user_id, vfc_set_title, vfc_set_access) VALUES ($1, $2, $3) RETURNING *",
-            [userID, title, access]
+            [userID, title, setAccess]
         );
         const newSetID = newSet.rows[0].vfc_set_id
         console.log(newSet.rows[0].vfc_set_id);
         console.log("New vflashcard set added: " + newSetID);
-        res.send("New vflashcard set added: " + newSetID);
+        // res.send("New vflashcard set added: " + newSetID);
+        res.json(newSetID)
     } catch (err) {
         console.log("Error: " + err);
-        res.send("Error: " + err);
+        res.status(400).send("Error: " + err);
     }
 
 });
@@ -167,7 +177,7 @@ router.post("/lib/:vfcSetID", auth, async (req, res) => {
         const { vfcSetID } = req.params;
         const userID = req.user;
         const { question, answer } = req.body;
-        if (question === undefined || answer === undefined) throw "Error - No input for question or answer."
+        if (question === undefined || answer === undefined || question.length === 0 || answer.length === 0) throw "Error - No input for question or answer."
 
         const verifyPermission = await pool.query(
             "SELECT * FROM vfc_set WHERE vfc_set_id = $1 AND vfc_user_id = $2", [vfcSetID, userID]

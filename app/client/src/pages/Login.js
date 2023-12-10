@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Navigate, redirect, useNavigate } from "react-router-dom";
 import { useAuth } from "../hook/useAuth";
+import { toast } from "react-toastify";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -31,17 +32,21 @@ const Login = () => {
                 body: JSON.stringify(body),
             });
             const parseResponse = await response.json();
-            // console.log(parseResponse);
+
             // localStorage.setItem("token", parseResponse.token);
             // if (!parseResponse) throw "Invalid login";
 
             await auth.setToken(parseResponse.token);
-            // setToken(true); // issue here
-            // console.log(auth);
+
+            // setToken(true); // issue here, delete or comment out
+            // console.log(auth); // do not undo comment
+
             console.log("Token set");
-            console.log("Should redirect to profile");
+            console.log("Redirect to profile");
+
             // return redirect("/profile");    // doesn't work
             // redirect('/profile');            // doesn't work
+
             navigate('/profile');
 
 

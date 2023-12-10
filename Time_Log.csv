@@ -167,3 +167,9 @@ After: /lib/:param",Testing & Debugging
 "Thursday, December 7, 2023",Frontend – Private card set,150,Build page to show cards from a single set.,Coding
 "Thursday, December 7, 2023",Office hour with supervisor,30,"Received advice and recommendation to approach individual card display, including change state and toggle, also navigation.","Supervisor discussion, emails"
 "Thursday, December 7, 2023","Frontend – Revise private & public library, private set",30,"For libraries, added condition to display empty library when empty. Also for private set, added condition to display empty set or existing title.",Coding
+"Friday, December 8, 2023",Frontend – Private Library set – Add toggle,120,Added toggle button to allow cards to be flipped in the private card sets.,Coding
+"Saturday, December 9, 2023",Frontend – Public Library set,60,Added the route to view set library.,Coding
+"Saturday, December 9, 2023",Frontend – Debugging Libraries route,60,Resolved issue “card.map is not a function” when flashcard set does not have any cards. Changed the backend route to return the empty set instead of message. Added relevant messages for private and public routes.,Testing & Debugging
+"Saturday, December 9, 2023",Frontend – Create new card set + new card,180,Began creating both routes. New card set route is almost completed. New card consists of a skeleton page.,Coding
+"Saturday, December 9, 2023",Frontend – Debug new card set,105,Spent time debugging the route.,Testing & Debugging
+"Saturday, December 9, 2023",Frontend – Work on new card ,75,Continued the work on new card. About 40% completed.,Coding
