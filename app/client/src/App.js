@@ -13,6 +13,7 @@ import NewCardSet from './pages/profile/NewCardSet';
 import NewCard from './pages/profile/NewCard.js'
 import Logout from './pages/profile/Logout'
 import EditCardSet from './pages/profile/EditCardSet.js';
+import EditCard from './pages/profile/EditCard.js';
 // import ProtectedRoute from './routes/ProtectedRoute';
 import { AuthProvider } from './hook/useAuth';
 import Test from './pages/profile/PrivateLibTest';
@@ -43,6 +44,7 @@ function App() {
             <Route path="/profile/new" element={<NewCardSet />} />
             <Route path="/profile/new/:id" element={<NewCard />} />
             <Route path="/profile/edit/:id" element={<EditCardSet />} />
+            <Route path="/profile/edit/:id/:id2" element={<EditCard />} />
             <Route path="/logout" element={<Logout />} />
           </Route>
         </Routes>

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import ErrorAlert from "../../components/ErrorAlert";
 import { useNavigate } from "react-router-dom";
 
-const NewCard = () => {    
+const NewCard = () => {
     const [inputs, setInputs] = useState({
         answer: "",
         question: "",
@@ -37,7 +37,7 @@ const NewCard = () => {
             // const result = await response.json();
             // console.log("response ok? (response.ok): " + response.ok)
             // console.log("response type: " + typeof(response));
-          
+
             // e.target.reset();        // Attempt to reset fields does not work
             console.log("createAnotherCard: " + createAnotherCard)
             if (response.ok && createAnotherCard === "true") {
@@ -45,12 +45,12 @@ const NewCard = () => {
                 e.target.reset();
                 console.log("Card created. Created another")
                 // navigate('/profile/new/' + params.cardSetID);
-               
+
                 navigate('/profile/new/' + params.id);
             } else if (response.ok && createAnotherCard === "false") {
                 setSuccess(true);
                 console.log("Card created. Do not create another card. Redirecting to personal lib.");
-                navigate('/profile/lib/');
+                navigate('/profile/lib/' + params.id);
             }
             else {
                 setError(true);
@@ -86,7 +86,6 @@ const NewCard = () => {
                             value={answer}
                             className="form-control"
                             onChange={e => onChange(e)}
-                            autoFocus
                         />
                     </div>
 
@@ -94,14 +93,14 @@ const NewCard = () => {
                         <label>
                             <input
                                 type="radio" name="createAnotherCard" value="true" defaultChecked="true" onChange={e => onChange(e)} />
-                            Create new cards after save.
+                            Create another after save.
                         </label>
                     </div>
                     <div className="form-check">
                         <label>
                             <input
                                 type="radio" name="createAnotherCard" value="false" onChange={e => onChange(e)} />
-                            Finished. Goto personal library after save.
+                            Return to cards after save.
                         </label>
                     </div>
                     <button type="submit" className="btn btn-primary center">

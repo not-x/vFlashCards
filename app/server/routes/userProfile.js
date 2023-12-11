@@ -73,7 +73,7 @@ router.get("/lib/:vfcSetID", auth, async (req, res) => {
         if (verifyPermission.rows.length === 0) throw "403 - Forbidden";
 
         const getCards = await pool.query(
-            "SELECT s.vfc_set_title, c.vfc_id, c.vfc_question, c.vfc_answer FROM vfc AS c INNER JOIN vfc_set AS s ON c.vfc_set_id = s.vfc_set_id WHERE c.vfc_set_id = $1 AND s.vfc_user_id = $2",
+            "SELECT s.vfc_set_title, s.vfc_set_id, c.vfc_id, c.vfc_question, c.vfc_answer FROM vfc AS c INNER JOIN vfc_set AS s ON c.vfc_set_id = s.vfc_set_id WHERE c.vfc_set_id = $1 AND s.vfc_user_id = $2",
             [vfcSetID, userID]
             // "SELECT * FROM vfc WHERE vfc_set_id = $1", [vfcSetID]
         );
@@ -322,12 +322,13 @@ router.put("/lib/:vfcSetID", auth, async (req, res) => {
 });
 
 // Update a vfc from a set
-router.put("/lib/:vfcSetID/card/", auth, async (req, res) => {
+router.put("/lib/:vfcSetID/:vfcID/", auth, async (req, res) => {
     try {
+        console.log("[UPDATE vfc route:]")
         const userID = req.user;
-        const { vfcSetID } = req.params;
-        const { vfcID, question, answer } = req.body;
-
+        const { vfcSetID, vfcID } = req.params;
+        const { question, answer } = req.body;
+        console.log("vfcID: " + vfcID)
         if (vfcID === undefined) throw "vFlashCard ID not provided. Please retry."
         if (question === undefined && answer === undefined) throw "Missing information."
 

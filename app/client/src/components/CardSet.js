@@ -57,7 +57,7 @@ function CardSet({ vfc_set_id, vfc_set_title, vfc_set_access }) {
             to={"/profile/edit/" + vfc_set_id}><p className="fs-6">Update Title & Access Type</p></Link>
         </div>
         <div className="card-footer small text-muted text-end">Access: {vfc_set_access}
-        {error && <ErrorAlert details={"Failed to delete the set. Delete cards first."} />}
+        {error && <ErrorAlert details={"Failed to delete the set. Remove existing cards first."} />}
         <form onSubmit={onSubmitForm}><button className="btn btn-outline-danger">Delete</button></form>
         </div>
       
