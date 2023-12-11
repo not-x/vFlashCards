@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Card from "../../components/Card"
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ErrorAlert from "../../components/ErrorAlert";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 function PrivSet() {
     const [card, setCard] = useState([]);
@@ -28,7 +28,7 @@ function PrivSet() {
             }
         }
         getData();
-        console.log("PrivSet route - type: " + typeof(card))
+        console.log("PrivSet route - type: " + typeof (card))
         console.log("PrivSet route - length: " + card.length)
         return () => {
         };
@@ -41,13 +41,27 @@ function PrivSet() {
     return (
         <div className="container-fluid text-center">
             <div className="row justify-content-center">
-                <p>{(card === null || card.length === 0) ? "Empty Set. Time to add some cards?" : card[0].vfc_set_title}</p>
+                <h5>{(card === null || card.length === 0) ?
+                    <Link to={"/profile/new/" + params.id}> Looks empty. Add some cards?</Link>
+                    :
+                    card[0].vfc_set_title}</h5>
+
+                {/* <p><Link to={"/profile/new/" + params.id} className="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Add New Cards</Link></p> */}
+                <p>{(card === null || card.length === 0) ?
+                    "" :
+                    <Link to={"/profile/new/" + params.id} className="link-success link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Add New Cards</Link>}
+                </p>
                 {card.map((entryData) => (
                     console.log("entryData: " + entryData.vfc_set_title),
                     <Card {...entryData} key={entryData.vfc_id} />
                     // <CardSet {...entryData}  />
                 ))}
             </div>
+            <p>
+                {(card === undefined || card.length === 0) ?
+                    ""
+                    : <Link to={"/profile/new/" + params.id} className="link-success link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Add New Cards</Link>}
+            </p>
         </div>
     );
 }

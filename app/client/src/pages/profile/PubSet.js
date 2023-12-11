@@ -39,7 +39,7 @@ function PubSet() {
     return (
         <div className="container-fluid text-center">
             <div className="row justify-content-center">
-                <p>{card.length === 0 ? "Empty Set. Author has not added any cards yet." : card[0].vfc_set_title}</p>
+                <h5>{card.length === 0 ? "Empty Set. Author has not added any cards yet." : card[0].vfc_set_title}</h5>
                 {card.map((entryData) => (
                     console.log("entryData: " + entryData.vfc_set_title),
                     <CardPub {...entryData} key={entryData.vfc_id} />

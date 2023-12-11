@@ -3,14 +3,13 @@ import { useParams } from "react-router-dom";
 import ErrorAlert from "../../components/ErrorAlert";
 import { useNavigate } from "react-router-dom";
 
-const NewCard = () => {
-
+const NewCard = () => {    
     const [inputs, setInputs] = useState({
         answer: "",
         question: "",
         createAnotherCard: "true",
     });
-
+    console.log("Create new card");
     const { answer, question, createAnotherCard } = inputs;
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
@@ -38,18 +37,15 @@ const NewCard = () => {
             // const result = await response.json();
             // console.log("response ok? (response.ok): " + response.ok)
             // console.log("response type: " + typeof(response));
-
-
-            // where to navigate to after success? 2 routes:
-            // 1. Create more cards
-            // 2. Private Library View
-            // May require 2 SEPARATE BUTTONS
-
+          
+            // e.target.reset();        // Attempt to reset fields does not work
             console.log("createAnotherCard: " + createAnotherCard)
             if (response.ok && createAnotherCard === "true") {
                 setSuccess(true);
+                e.target.reset();
                 console.log("Card created. Created another")
                 // navigate('/profile/new/' + params.cardSetID);
+               
                 navigate('/profile/new/' + params.id);
             } else if (response.ok && createAnotherCard === "false") {
                 setSuccess(true);
