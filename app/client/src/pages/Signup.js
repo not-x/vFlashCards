@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hook/useAuth";
 
 const Signup = ({setAuth}) => {
+    const auth = useAuth();
     const navigate = useNavigate();
     const [inputs, setInputs] = useState({
         firstName: "",
@@ -30,7 +32,9 @@ const Signup = ({setAuth}) => {
             });
             const parseResponse = await response.json();
             // console.log(parseResponse);
-            localStorage.setItem("token", parseResponse.token);
+            // await localStorage.setItem("token", parseResponse.token);
+
+            await auth.setToken(parseResponse.token);
 
             // setAuth(true);
             navigate('/profile');

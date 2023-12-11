@@ -173,3 +173,12 @@ After: /lib/:param",Testing & Debugging
 "Saturday, December 9, 2023",Frontend – Create new card set + new card,180,Began creating both routes. New card set route is almost completed. New card consists of a skeleton page.,Coding
 "Saturday, December 9, 2023",Frontend – Debug new card set,105,Spent time debugging the route.,Testing & Debugging
 "Saturday, December 9, 2023",Frontend – Work on new card ,75,Continued the work on new card. About 40% completed.,Coding
+"Sunday, December 10, 2023",Frontend – New Card Set,75,Attempted to pass additional card set info (title) without success. Skipped since this is not critical.,Testing & Debugging
+"Sunday, December 10, 2023",Frontend – New Card,75,Continued work on the new card. Debugged the issue.,Coding
+"Sunday, December 10, 2023",Frontend – Private Library set,45,Added option to add/create new cards in a set.,Coding
+"Sunday, December 10, 2023",Frontend – Edit Card set properties,150,Added option to edit existing card set properties.,Coding
+"Sunday, December 10, 2023",Frontend – CardSet,0,"Added button to allow for deletion. Outstanding issue, page does not update after deletion. Backend appears ok.",Coding
+"Sunday, December 10, 2023",Frontend – New Card,90,"Added function to delete and edit existing card. Also, had to debug update card route.",Coding
+"Monday, December 11, 2023",Final presentation slides,90,Worked on the slides.,Other
+"Monday, December 11, 2023",Final presentation slides,165,Continued drafting the slides.,Other
+"Monday, December 11, 2023",Frontend – debug signup route,15,Noticed issue while taking screenshots. Resolved issue with page redirection after successful signup.,Testing & Debugging
