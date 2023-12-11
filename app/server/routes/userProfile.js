@@ -35,7 +35,7 @@ router.get('/pub_lib', auth, async (req, res) => {
 // Get private flashcard sets for vfc_user
 router.get('/lib', auth, async (req, res) => {
     try {
-        console.log("Private library route:");
+        console.log("Get Private library route:");
         userID = req.user;
         console.log(`UserID: ${userID}`);
         const vfcPrivateLib = await pool.query(
@@ -244,7 +244,7 @@ router.put("/lib/:vfcSetID", auth, async (req, res) => {
 
             );
             // console.log(updateCardSet.rows.length);
-            if (CardSet.rows.length === 0) throw "403 - Forbidden"
+            if (updateCardSet.rows.length === 0) throw "403 - Forbidden"
             // console.log("End title only");
 
         }
