@@ -186,3 +186,4 @@ After: /lib/:param",Testing & Debugging
 "Tuesday, December 12, 2023",Presentation revision,30,Began finalizing the revision for class submission.,Other
 "Tuesday, December 12, 2023",Script revision,45,Began finalizing the revision for class submission.,Other
 "Tuesday, December 12, 2023",Deploy to Render,300,Deployed to Render. Had to troubleshoot the application. DB has to be cloned. Issue with deployment. Issue with configuration in the PROD environment.,Testing & Debugging
+"Wednesday, December 13, 2023",Troubleshoot deployment on Render,75,Continued troubleshoot the deployment issue. Resolved environment issue with db.js.,Testing & Debugging
