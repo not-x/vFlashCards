@@ -16,7 +16,6 @@ require("dotenv").config();
 //     port:5432,
 //     database: process.env.DB
 // });
-// const dev = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
 
 const dev = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB}`;
 // console.log(dev)
@@ -31,8 +30,8 @@ const dev = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${pr
 // }
 
 // const prod = `postgresql://${process.env.DB_PROD}`
-const prod = DATABASE_URL
-console.log("prod db: " + prod);
+// const prod = process.env.DB_PROD
+const prod = process.env.DB_PROD
 
 const pool = new Pool({
     connectionString:

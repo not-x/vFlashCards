@@ -13,7 +13,7 @@ app.use("/profile", require("./routes/userProfile"));
 
 
 console.log("process.env.NODE_ENV: " + process.env.NODE_ENV)
-console.log("db: " + DATABASE_URL)
+// console.log("db: " + DATABASE_URL)
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../client/build")));
