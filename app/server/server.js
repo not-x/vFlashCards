@@ -12,11 +12,16 @@ app.use("/auth", require("./routes/login"));
 app.use("/profile", require("./routes/userProfile"));
 
 
-// redirect all unknown routes to react app
-app.use(express.static(path.join(__dirname, "../client/build")));
-app.get("*", function (req, res) {
-    res.sendFile(path.join(__dirname, "../client/build", "index.html"));
-});
+console.log("process.env.NODE_ENV: " + process.env.NODE_ENV)
+
+// if (process.env.NODE_ENV === "production") {
+//     app.use(express.static(path.join(__dirname, "../client/build")));
+//     app.get("*", function (req, res) {
+//         res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+//     });
+// }
+
+
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
