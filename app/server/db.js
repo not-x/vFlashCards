@@ -19,16 +19,18 @@ require("dotenv").config();
 // const dev = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
 
 const dev = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB}`;
-console.log(dev)
-const prod = {
-    "use_env_variable": DB_PORT,
-    "dialect": "postgres",
-    "dialectOptions": {
-      "ssl": {
-        "rejectUnauthorized": false
-      }
-    }
-}
+// console.log(dev)
+// const prod = {
+//     "use_env_variable": process.env.DB_PROD,
+//     "dialect": "postgres",
+//     "dialectOptions": {
+//       "ssl": {
+//         "rejectUnauthorized": false
+//       }
+//     }
+// }
+
+const prod = `postgresql://${process.env.DB_PROD}`
 
 const pool = new Pool({
     connectionString:
