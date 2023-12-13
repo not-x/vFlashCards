@@ -30,8 +30,10 @@ const dev = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${pr
 //     }
 // }
 
-const prod = `postgresql://${process.env.DB_PROD}`
+// const prod = `postgresql://${process.env.DB_PROD}`
+const prod = DATABASE_URL
 console.log(prod);
+
 const pool = new Pool({
     connectionString:
       process.env.NODE_ENV === "production" ? prod : dev,
