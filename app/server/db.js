@@ -21,7 +21,7 @@ require("dotenv").config();
 const dev = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB}`;
 console.log(dev)
 const prod = {
-    "use_env_variable": "DATABASE_URL",
+    "use_env_variable": DB_PORT,
     "dialect": "postgres",
     "dialectOptions": {
       "ssl": {
