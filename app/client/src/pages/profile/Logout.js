@@ -6,7 +6,8 @@ const Logout = () => {
     // const {logoutUser} = useAuth().Logout;
     const auth = useAuth();
     auth.logout();
-    console.log(auth);
+    // console.log(auth);
+    console.log("Logging out...");
     return (
         <>
             <h1>Logout</h1>
