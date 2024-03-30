@@ -5,6 +5,7 @@ const db = require('../db');
 const pool = require("../db");
 const verifySetAccess = require('../verifySetAccess');
 const { verify } = require('jsonwebtoken');
+const { listen } = require('express/lib/application');
 
 // Get public flashcard sets
 router.get('/pub_lib', auth, async (req, res) => {
@@ -182,7 +183,7 @@ router.post("/lib/:vfcSetID", auth, async (req, res) => {
         // console.log(vfcSetID);
         const userID = req.user;
         const { question, answer } = req.body;
-        if (question === undefined || answer === undefined || question.length === 0 || answer.length === 0) throw "Error - No input for question or answer."
+        if (question === undefined || answer === undefined || question.length === 0 || answer.length === 0) throw "Error - Missing input. Please enter question and answer."
 
         const verifyPermission = await pool.query(
             "SELECT * FROM vfc_set WHERE vfc_set_id = $1 AND vfc_user_id = $2", [vfcSetID, userID]
@@ -197,6 +198,52 @@ router.post("/lib/:vfcSetID", auth, async (req, res) => {
         if (createNewCard.rows.length === 0) throw "403 - Forbidden"
 
         const result = "New card added.";
+        console.log(result);
+        res.send(result);
+    } catch (error) {
+        console.error(error);
+        res.send(error);
+    }
+});
+
+// Generate new cards for a vfc_set 
+router.post("/lib/:vfcSetID/autogen", auth, async (req, res) => {
+    try {
+        console.log("[Route - Generate new card]");
+        const { vfcSetID } = req.params;
+        // console.log(vfcSetID);
+        const userID = req.user;
+        const { apiKey, file, numQuestions } = req.body;
+
+        // Verification:
+        // 1. Verify that apiKey/numQuestions ares not null / 0 length
+        if (apiKey.length === 0 || numQuestions <= 1) throw "Error - Invalid input. Check API key or number of questions."
+        
+        // 2. Verify that the file is not empty and not above a certain size.
+
+
+        const verifyPermission = await pool.query(
+            "SELECT * FROM vfc_set WHERE vfc_set_id = $1 AND vfc_user_id = $2", [vfcSetID, userID]
+        );
+        console.log(verifyPermission.rows);
+        if (verifyPermission.rows.length === 0) throw "403 - Forbidden"
+
+        // Steps:
+        // 1. Process file
+        // 2. Generate set number of questions and answers via LLM.
+        // 3. Save results to a listen
+        // 4. Cycle through each set of Q/A and save them to the database.
+
+
+        // const createNewCard = await pool.query(
+        //     "INSERT INTO vfc (vfc_set_id, vfc_question, vfc_answer) VALUES ($1, $2, $3) RETURNING *", [vfcSetID, question, answer]
+        // );
+
+        // if (createNewCard.rows.length === 0) throw "403 - Forbidden"
+
+        // const result = "New cards have been generated.";
+
+        const result = "Autogen route status: Ok";
         console.log(result);
         res.send(result);
     } catch (error) {
