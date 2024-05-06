@@ -241,8 +241,8 @@ router.post("/lib/:vfcSetID/autogen", auth, upload.single('file'), async (req, r
         let createNewCard = "";
         for (let i = 0; i < autoGenCard.length; i++) {
             createNewCard = await pool.query(
-                    "INSERT INTO vfc (vfc_set_id, vfc_question, vfc_answer) VALUES ($1, $2, $3) RETURNING *", [vfcSetID, cardList[i][0], cardList[i][1]]
-                );
+                "INSERT INTO vfc (vfc_set_id, vfc_question, vfc_answer) VALUES ($1, $2, $3) RETURNING *", [vfcSetID, cardList[i][0], cardList[i][1]]
+            );
         }
 
 
@@ -252,9 +252,8 @@ router.post("/lib/:vfcSetID/autogen", auth, upload.single('file'), async (req, r
 
         if (createNewCard.rows.length === 0) throw "403 - Forbidden"
 
-        // const result = "New cards have been generated.";
-
-        const result = "Autogen route status: Ok";
+        // const result = "Autogen route status: Ok";
+        const result = "New cards have been generated.";
         console.log(result);
         res.send(result);
     } catch (error) {
