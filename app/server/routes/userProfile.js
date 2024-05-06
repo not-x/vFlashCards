@@ -5,7 +5,10 @@ const db = require('../db');
 const pool = require("../db");
 const verifySetAccess = require('../verifySetAccess');
 const { verify } = require('jsonwebtoken');
-const { listen } = require('express/lib/application');
+// const { listen } = require('express/lib/application');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+const autoGenCard = require('../components/quesAnsGenerator');
 
 // Get public flashcard sets
 router.get('/pub_lib', auth, async (req, res) => {
@@ -206,22 +209,23 @@ router.post("/lib/:vfcSetID", auth, async (req, res) => {
     }
 });
 
-// Generate new cards for a vfc_set 
-router.post("/lib/:vfcSetID/autogen", auth, async (req, res) => {
+// Generate new cards for a vfc_set using LLM
+router.post("/lib/:vfcSetID/autogen", auth, upload.single('file'), async (req, res) => {
     try {
-        console.log("[Route - Generate new card]");
+        console.log("[Route - Generate new cards]");
         const { vfcSetID } = req.params;
         // console.log(vfcSetID);
         const userID = req.user;
-        const { apiKey, file, numQuestions } = req.body;
+        // const { apiKey, file, numQuestions } = req.body;
+        const { apiKey, file } = req.body;
 
         // Verification:
-        // 1. Verify that apiKey/numQuestions ares not null / 0 length
-        if (apiKey.length === 0 || numQuestions <= 1) throw "Error - Invalid input. Check API key or number of questions."
-        
+        // 1. Verify the presence of an API key.
+        if (apiKey.length === 0 || apiKey === undefined) throw "Error - Invalid input. Please enter an API key."
+
         // 2. Verify that the file is not empty and not above a certain size.
 
-
+        // Verify ownership to the vfc set.
         const verifyPermission = await pool.query(
             "SELECT * FROM vfc_set WHERE vfc_set_id = $1 AND vfc_user_id = $2", [vfcSetID, userID]
         );
@@ -231,15 +235,22 @@ router.post("/lib/:vfcSetID/autogen", auth, async (req, res) => {
         // Steps:
         // 1. Process file
         // 2. Generate set number of questions and answers via LLM.
-        // 3. Save results to a listen
-        // 4. Cycle through each set of Q/A and save them to the database.
+        // 3. Save results.
+        // 4. Iterate through the result and save them to a vfc set.
+        const cardList = await autoGenCard(file);
+        let createNewCard = "";
+        for (let i = 0; i < autoGenCard.length; i++) {
+            createNewCard = await pool.query(
+                    "INSERT INTO vfc (vfc_set_id, vfc_question, vfc_answer) VALUES ($1, $2, $3) RETURNING *", [vfcSetID, cardList[i][0], cardList[i][1]]
+                );
+        }
 
 
         // const createNewCard = await pool.query(
         //     "INSERT INTO vfc (vfc_set_id, vfc_question, vfc_answer) VALUES ($1, $2, $3) RETURNING *", [vfcSetID, question, answer]
         // );
 
-        // if (createNewCard.rows.length === 0) throw "403 - Forbidden"
+        if (createNewCard.rows.length === 0) throw "403 - Forbidden"
 
         // const result = "New cards have been generated.";
 
