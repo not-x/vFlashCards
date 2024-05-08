@@ -232,33 +232,33 @@ router.post("/lib/:vfcSetID/autogen", auth, upload.single('file'), async (req, r
 
         // Verify that the file is not empty and above a certain size.
         const upperLimit = 10000000;
-        if (file.size === 0 || file.size > upperLimit) throw "Error - Invalid file size. (Either empty or above 10MB.) Please select a different file and retry.";
+        if (file.size === 0 || file.size > upperLimit) throw "Error - Invalid file size. (Either empty or above 10MB.) Please retry with a different file.";
 
+        let fileType = "";
         // Check MIME type
-        if (file.mimetype !== "text/plain" || file.mimetype !== "application/pdf" || file.mimetype !== "application/vnd.ms-powerpoint" || file.mimetype !== "application/vnd.openxmlformats-officedocument.presentationml.presentation" ||
-            file.mimetype !== "application/msword" || file.mimetype !== "application/vnd.openxmlformats-officedocument.wordprocessingml.document") throw "Error - Invalid file type. Only plain text / PDF / Powerpoint / Word documents are accepted."
-
-
+        if (file.mimetype === "text/plain") fileType = "txt";
+        else if (file.mimetype === "application/pdf") fileType = "pdf";
+        else if (file.mimetype === "application/vnd.ms-powerpoint" ||
+            file.mimetype === "application/vnd.openxmlformats-officedocument.presentationml.presentation") fileType = "ms-ppt";
+        else if (file.mimetype === "application/msword" ||
+            file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") fileType = "ms-word";
+        else throw "Error - Invalid file type. Only plain text / PDF / Powerpoint / Word documents are accepted.";
 
         // Steps:
         // 1. Process file
         // 2. Generate set number of questions and answers via LLM.
         // 3. Save results.
-        // 4. Iterate through the result and save them to a vfc set.
-        const cardList = await autoGenCard(file);
+        // 4. Iterate through the result and save them to the vfc set.
+        const cardList = await autoGenCard(file, apiKey, fileType);
         let createNewCard = "";
-        for (let i = 0; i < autoGenCard.length; i++) {
+        for (let i = 0; i < cardList.length; i++) {
             createNewCard = await pool.query(
                 "INSERT INTO vfc (vfc_set_id, vfc_question, vfc_answer) VALUES ($1, $2, $3) RETURNING *", [vfcSetID, cardList[i][0], cardList[i][1]]
             );
+            if (createNewCard.rows.length === 0) throw "403 - Forbidden"
         }
 
 
-        // const createNewCard = await pool.query(
-        //     "INSERT INTO vfc (vfc_set_id, vfc_question, vfc_answer) VALUES ($1, $2, $3) RETURNING *", [vfcSetID, question, answer]
-        // );
-
-        if (createNewCard.rows.length === 0) throw "403 - Forbidden"
 
         // const result = "Autogen route status: Ok";
         const result = "New cards have been generated.";
@@ -506,9 +506,6 @@ router.delete("/lib/:vfcSetID/:vfc_id", auth, async (req, res) => {
         console.error(err);
         res.json(err);
     }
-
 })
-
-
 
 module.exports = router;

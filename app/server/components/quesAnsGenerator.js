@@ -1,21 +1,35 @@
 import { ChatOpenAI } from "@langchain/openai";
 import { ChatPromptTemplate, PromptTemplate } from "@langchain/core/prompts";
 import { PPTXLoader } from "langchain/document_loaders/fs/pptx";
+import { DocxLoader } from "langchain/document_loaders/fs/docx";
+import { PDFLoader } from "langchain/document_loaders/fs/pdf";
+import { TextLoader } from "langchain/document_loaders/fs/text";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { MemoryVectorStore } from "langchain/vectorstores/memory";
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 import { createRetrievalChain } from "langchain/chains/retrieval";
 
-async function quesAnsGenerator(file, apiKey) {
+async function quesAnsGenerator(file, apiKey, fileType) {
     try {
         const chatModel = new ChatOpenAI({
             openAIApiKey: apiKey,
             temperature: 0.0,
         });
 
-        const inputDocument = file;
-        const loader = new PPTXLoader(inputDocument);
+        // const inputDocument = file;
+        // const loader = new PPTXLoader(inputDocument);
+        let loader;
+        if (fileType === "txt") {
+            loader = new TextLoader(file);
+        } else if (fileType === "pdf") {
+            loader = new PDFLoader(file);
+        } else if (fileType === "ms-word") {
+            loader = new DocxLoader(file);
+        } else if (fileType === "ms-ppt") {
+            loader = new PPTXLoader(file);
+        }
+
         const docs = await loader.load();
 
         const splitter = new RecursiveCharacterTextSplitter();
