@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../auth');
-const db = require('../db');
 const pool = require("../db");
 const verifySetAccess = require('../verifySetAccess');
 const { verify } = require('jsonwebtoken');
@@ -217,13 +216,8 @@ router.post("/lib/:vfcSetID/autogen", auth, upload.single('file'), async (req, r
         // console.log(vfcSetID);
         const userID = req.user;
         // const { apiKey, file, numQuestions } = req.body;
-        const { apiKey, file } = req.body;
-
-        // Verification:
-        // 1. Verify the presence of an API key.
-        if (apiKey.length === 0 || apiKey === undefined) throw "Error - Invalid input. Please enter an API key."
-
-        // 2. Verify that the file is not empty and not above a certain size.
+        const { apiKey } = req.body;
+        const file = req.file;
 
         // Verify ownership to the vfc set.
         const verifyPermission = await pool.query(
@@ -231,6 +225,20 @@ router.post("/lib/:vfcSetID/autogen", auth, upload.single('file'), async (req, r
         );
         console.log(verifyPermission.rows);
         if (verifyPermission.rows.length === 0) throw "403 - Forbidden"
+
+        // API key + file verification:
+        // Verify the presence of an API key.
+        if (apiKey.length === 0 || apiKey === undefined) throw "Error - Invalid input. Please enter an API key."
+
+        // Verify that the file is not empty and above a certain size.
+        const upperLimit = 10000000;
+        if (file.size === 0 || file.size > upperLimit) throw "Error - Invalid file size. (Either empty or above 10MB.) Please select a different file and retry.";
+
+        // Check MIME type
+        if (file.mimetype !== "text/plain" || file.mimetype !== "application/pdf" || file.mimetype !== "application/vnd.ms-powerpoint" || file.mimetype !== "application/vnd.openxmlformats-officedocument.presentationml.presentation" ||
+            file.mimetype !== "application/msword" || file.mimetype !== "application/vnd.openxmlformats-officedocument.wordprocessingml.document") throw "Error - Invalid file type. Only plain text / PDF / Powerpoint / Word documents are accepted."
+
+
 
         // Steps:
         // 1. Process file
