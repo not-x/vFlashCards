@@ -1,14 +1,26 @@
-import { ChatOpenAI } from "@langchain/openai";
-import { ChatPromptTemplate, PromptTemplate } from "@langchain/core/prompts";
-import { PPTXLoader } from "langchain/document_loaders/fs/pptx";
-import { DocxLoader } from "langchain/document_loaders/fs/docx";
-import { PDFLoader } from "langchain/document_loaders/fs/pdf";
-import { TextLoader } from "langchain/document_loaders/fs/text";
-import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
-import { OpenAIEmbeddings } from "@langchain/openai";
-import { MemoryVectorStore } from "langchain/vectorstores/memory";
-import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
-import { createRetrievalChain } from "langchain/chains/retrieval";
+// import { ChatOpenAI } from "@langchain/openai";
+// import { ChatPromptTemplate, PromptTemplate } from "@langchain/core/prompts";
+// import { PPTXLoader } from "langchain/document_loaders/fs/pptx";
+// import { DocxLoader } from "langchain/document_loaders/fs/docx";
+// import { PDFLoader } from "langchain/document_loaders/fs/pdf";
+// import { TextLoader } from "langchain/document_loaders/fs/text";
+// import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
+// import { OpenAIEmbeddings } from "@langchain/openai";
+// import { MemoryVectorStore } from "langchain/vectorstores/memory";
+// import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
+// import { createRetrievalChain } from "langchain/chains/retrieval";
+
+const { ChatOpenAI } = require("@langchain/openai");
+const { ChatPromptTemplate, PromptTemplate } = require("@langchain/core/prompts");
+const { PPTXLoader } = require("langchain/document_loaders/fs/pptx");
+const { DocxLoader } = require("langchain/document_loaders/fs/docx");
+const { PDFLoader } = require("langchain/document_loaders/fs/pdf");
+const { TextLoader } = require("langchain/document_loaders/fs/text");
+const { RecursiveCharacterTextSplitter } = require("langchain/text_splitter");
+const { OpenAIEmbeddings } = require("@langchain/openai");
+const { MemoryVectorStore } = require("langchain/vectorstores/memory");
+const { createStuffDocumentsChain } = require("langchain/chains/combine_documents");
+const { createRetrievalChain } = require("langchain/chains/retrieval");
 
 async function quesAnsGenerator(file, apiKey, fileType) {
     try {
