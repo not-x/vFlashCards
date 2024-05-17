@@ -232,7 +232,8 @@ router.post("/lib/:vfcSetID/autogen", auth, upload.single('file'), async (req, r
 
         // Verify that the file is not empty and above a certain size.
         const upperLimit = 10000000;
-        if (file.size === 0 || file.size > upperLimit) throw "Error - Invalid file size. (Either empty or above 10MB.) Please retry with a different file.";
+        if (file === undefined || file.size === 0) throw "Error - No file or empty file detected";
+        if (file.size > upperLimit) throw "Error - Invalid file size. (Either empty or above 10MB.) Please retry with a different file.";
 
         let fileType = "";
         // Check MIME type
@@ -244,12 +245,15 @@ router.post("/lib/:vfcSetID/autogen", auth, upload.single('file'), async (req, r
             file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") fileType = "ms-word";
         else throw "Error - Invalid file type. Only plain text / PDF / Powerpoint / Word documents are accepted.";
 
+        console.log("file ok");
+        console.log("filetype: " + fileType);
         // Steps:
         // 1. Process file
         // 2. Generate set number of questions and answers via LLM.
         // 3. Save results.
         // 4. Iterate through the result and save them to the vfc set.
         const cardList = await autoGenCard(file, apiKey, fileType);
+        console.log(cardList);
         let createNewCard = "";
         for (let i = 0; i < cardList.length; i++) {
             createNewCard = await pool.query(

@@ -22,27 +22,55 @@ const { MemoryVectorStore } = require("langchain/vectorstores/memory");
 const { createStuffDocumentsChain } = require("langchain/chains/combine_documents");
 const { createRetrievalChain } = require("langchain/chains/retrieval");
 
+const lineSeparator = "------------------------------------";
 async function quesAnsGenerator(file, apiKey, fileType) {
+    console.log(lineSeparator);
+    console.log("QA Autogen()");
+    console.log(lineSeparator);
     try {
         const chatModel = new ChatOpenAI({
             openAIApiKey: apiKey,
             temperature: 0.0,
         });
 
-        // const inputDocument = file;
-        // const loader = new PPTXLoader(inputDocument);
+        // console.log("file: ");
+        // console.log(file);
+        // console.log(lineSeparator);
+        const temp = file.path;
+        console.log("temp file name: ");
+        console.log(temp);
+        console.log(lineSeparator);
         let loader;
+
         if (fileType === "txt") {
-            loader = new TextLoader(file);
+            loader = new TextLoader(temp);
         } else if (fileType === "pdf") {
-            loader = new PDFLoader(file);
+            loader = new PDFLoader(temp);
         } else if (fileType === "ms-word") {
-            loader = new DocxLoader(file);
+            loader = new DocxLoader(temp);
         } else if (fileType === "ms-ppt") {
-            loader = new PPTXLoader(file);
+            loader = new PPTXLoader(temp);
         }
 
+        // if (fileType === "txt") {
+        //     loader = new TextLoader(file);
+        // } else if (fileType === "pdf") {
+        //     loader = new PDFLoader(file);
+        // } else if (fileType === "ms-word") {
+        //     loader = new DocxLoader(file);
+        // } else if (fileType === "ms-ppt") {
+        //     loader = new PPTXLoader(file);
+        // }
+
+        // console.log("loader:");
+        // console.log(loader);
+        // console.log(typeof (loader));
+        // console.log(lineSeparator);
+
         const docs = await loader.load();
+        // console.log("docs:");
+        // console.log(docs);
+        // console.log(lineSeparator);
 
         const splitter = new RecursiveCharacterTextSplitter();
         const splitDocs = await splitter.splitDocuments(docs);
@@ -77,35 +105,67 @@ async function quesAnsGenerator(file, apiKey, fileType) {
             input: getDetail,
         });
 
+        // console.log(detailResult);
+        // console.log(lineSeparator);
+
         const questionPrompt = PromptTemplate.fromTemplate(
             `Generate a list of questions from the list of {detail}.`
         );
 
         const questionChain = questionPrompt.pipe(chatModel);
         const getQuestions = await questionChain.invoke({ detail: detailResult.answer });
-        let getAns = "";
+
+        // console.log(getQuestions);
+        // console.log(lineSeparator);
+
+        let getAns;
         let isValid = false;
         while (!isValid) {
+            console.log("Attempt to get corresponding answers");
             getAns = await retrievalChain.invoke({
                 input: getQuestions.content,
             });
             if (getQuestions.length === getAns.length) isValid = true;
         }
+        // console.log("Corresponding answers:");
+        // console.log(getAns);
+        // console.log(lineSeparator);
+
 
         let quesArr = getQuestions.content.split('\n');
+        console.log("Question array:");
+        console.log(lineSeparator);
         quesArr = quesArr.map(line => line.replace(/^\d+\.\s/, ''));
+        // console.log("After regex:");
+        console.log(quesArr);
+        console.log(lineSeparator);
         let ansArr = getAns.answer.split('\n');
-        ans = ans.map(line => line.replace(/^\d+\.\s/, ''));
+        console.log("Answer array:");
+        console.log(ansArr);
+        console.log(lineSeparator);
+
+        ansArr = ansArr.map(line => line.replace(/^\d+\.\s/, ''));
+        console.log("After regex:");
+        console.log(lineSeparator);
+        console.log(ansArr);
+        console.log(lineSeparator);
+        console.log(ansArr);
+        console.log(lineSeparator);
 
         const quesAnsList = [];
-        for (let i = 0; i < ans.length; i++) {
+        for (let i = 0; i < ansArr.length; i++) {
             quesAnsList.push([quesArr[i], ansArr[i]]);
         }
+        console.log("Final QA arraylist:");
+        console.log(quesAnsList);
+        console.log(quesAnsList.length);
+        console.log("Success! Return list of QA...");
+        console.log(lineSeparator);
 
         return quesAnsList;
     } catch (err) {
         console.error("Error - " + err);
-        res.send("Error - " + err);
+        // console.send("Error - " + err);
     }
 }
 
