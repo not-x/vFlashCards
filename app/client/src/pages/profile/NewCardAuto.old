@@ -1,0 +1,58 @@
+import { useState } from "react";
+import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import ErrorAlert from "../../components/ErrorAlert";
+
+const NewCardAuto = () => {
+    const [inputs, setInputs] = useState({
+        apiKey: ""
+    });
+
+    let params = useParams();
+    const navigate = useNavigate();
+    const {apiKey} = inputs;
+    const [error, setError] = useState(false);
+    
+
+
+    console.log("Autogen cards with LLM");
+
+    const onChange = e => {
+        setInputs({ ...inputs, [e.target.name]: e.target.value });
+    };
+
+    const onSubmitForm = async e => {
+        e.preventDefault();
+        try {
+            const body = {apiKey};
+        } catch (error) {
+            console.error("Error: " + error);
+            setError(true);
+        }
+    }
+
+    return (
+        <>
+            <div className="container-md p-1 my-3 overflow-hidden" >
+                <h5 className="text-center">Autogen Cards with OpenAI</h5>
+                <p className="text-center">(Generate questions & answers from your documents.)</p>
+                {error && <ErrorAlert details={"Failed to generate the content"} />}
+                <form onSubmit={onSubmitForm}>
+                <div className="input-group mb-2">
+                        <input
+                            type="text"
+                            name="apiKey"
+                            placeholder="Enter OpenAI API Key"
+                            value={apiKey}
+                            className="form-control"
+                            onChange={e => onChange(e)}
+                            autoFocus
+                        />
+                    </div>
+                </form>
+            </div>
+        </>
+    );
+}
+
+export default NewCardAuto;

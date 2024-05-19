@@ -49,6 +49,7 @@ function Card({ vfc_set_title, vfc_set_id, vfc_id, vfc_question, vfc_answer }) {
 
       if (response.ok) {
         setSuccess(true);
+        e.target.reset();
         navigate('/profile/lib/' + params.id);
       } else {
         setError(true);

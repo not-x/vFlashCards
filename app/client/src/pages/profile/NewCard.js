@@ -43,7 +43,7 @@ const NewCard = () => {
             if (response.ok && createAnotherCard === "true") {
                 setSuccess(true);
                 e.target.reset();
-                console.log("Card created. Created another")
+                console.log("Card created. Create another");
                 // navigate('/profile/new/' + params.cardSetID);
 
                 navigate('/profile/new/' + params.id);

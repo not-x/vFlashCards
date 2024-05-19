@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useNavigate, Routes, Route } from "react-router-dom";
 import ErrorAlert from "../../components/ErrorAlert";
 import { useParams } from "react-router-dom";
-import NewCard from "./NewCard";
+// import NewCard from "./NewCard";
 
 function NewCardSet() {
     const [inputs, setInputs] = useState({
         title: "",
-        access: "private"
+        access: "private",
+        // for auto gen
+        newCardType: "manual"
     });
 
     const navigate = useNavigate();
@@ -26,7 +28,7 @@ function NewCardSet() {
     const onSubmitForm = async e => {
         e.preventDefault();
         try {
-            const body = { title, access };
+            const body = { title, access};
             // console.log("body: " + JSON.stringify(body))
             const response = await fetch("/profile/new_set", {
                 method: "POST",
@@ -48,12 +50,23 @@ function NewCardSet() {
             // console.log("cardsetID: " + cardSet.vfc_set_id)
             // console.log("cardSet: " + JSON.stringify(cardSet))
             setCardInfo(cardSet);
-            
+
+
+            // if (response.ok) {
+            //     setSuccess(true);
+            //     navigate('/profile/new/' + (cardSet.vfc_set_id));
+            //     // navigate('/profile/new/' + params.id);
+            // } else {
+            //     setError(true);
+            // }
 
             if (response.ok) {
                 setSuccess(true);
                 navigate('/profile/new/' + (cardSet.vfc_set_id));
                 // navigate('/profile/new/' + params.id);
+            // } else if (response.ok) {
+            //     setSuccess(true);
+            //     navigate('/profile/autogen' + (cardSet.vfc_set_id));
             } else {
                 setError(true);
             }
@@ -70,7 +83,7 @@ function NewCardSet() {
             <div className="container-md p-1 my-3 overflow-hidden" >
                 <h5 className="text-center">Create New Set of vFlashCards</h5>
                 <div className="row gx-5">
-                    {error && <ErrorAlert details={"Failed to save the content"} />}
+                    {error && <ErrorAlert details={"Failed to save content"} />}
                     <form onSubmit={onSubmitForm}>
                         <div className="input-group mb-2">
                             <input
@@ -83,7 +96,6 @@ function NewCardSet() {
                                 autoFocus
                             />
                         </div>
-
                         <div className="form-check">
                             <label>
                                 <input
@@ -95,9 +107,23 @@ function NewCardSet() {
                             <label>
                                 <input
                                     type="radio" name="access" value="public" onChange={e => onChange(e)} />
-                                Public access (viewable by everyone else)
+                                Public access (viewable by everyone)
                             </label>
                         </div>
+                        {/* <div className="form-check">
+                            <label>
+                                <input
+                                    type="radio" name="newCardType" value="manual" defaultChecked="true" onChange={e => onChange(e)} />
+                                New cards - Manual input (default)
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <label>
+                                <input
+                                    type="radio" name="newCardType" value="auto" onChange={e => onChange(e)} />
+                                New Cards - Autogen from document with OpenAI🤖
+                            </label>
+                        </div> */}
                         <button type="submit" className="btn btn-primary center">
                             Save & Create New Cards
                         </button>

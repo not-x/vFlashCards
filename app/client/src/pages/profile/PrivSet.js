@@ -44,13 +44,25 @@ function PrivSet() {
                 <h5>{(card === null || card.length === 0) ?
                     <Link to={"/profile/new/" + params.id}> Looks empty. Add some cards?</Link>
                     :
-                    card[0].vfc_set_title}</h5>
+                    card[0].vfc_set_title}
+                    <br></br>
+                    {(card === null || card.length === 0) ?
+                    <Link to={"/profile/autogen/" + params.id}> Or generate new cards. </Link>
+                    :
+                    ""}
+                </h5>
+                <p>
+                    {(card === null || card.length === 0) ?
+                        "" :
+                        <Link to={"/profile/new/" + params.id} className="link-success link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Add New Cards</Link>}
+                    <br></br>
 
-                {/* <p><Link to={"/profile/new/" + params.id} className="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Add New Cards</Link></p> */}
-                <p>{(card === null || card.length === 0) ?
-                    "" :
-                    <Link to={"/profile/new/" + params.id} className="link-success link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Add New Cards</Link>}
+                    {(card === undefined || card.length === 0) ?
+                        ""
+                        : <Link to={"/profile/autogen/" + params.id} className="link-success link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">🤖 Generate New Cards 🤖</Link>}
                 </p>
+
+
                 {card.map((entryData) => (
                     console.log("entryData: " + entryData.vfc_set_title),
                     <Card {...entryData} key={entryData.vfc_id} />
@@ -61,6 +73,10 @@ function PrivSet() {
                 {(card === undefined || card.length === 0) ?
                     ""
                     : <Link to={"/profile/new/" + params.id} className="link-success link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Add New Cards</Link>}
+                <br></br>
+                {(card === undefined || card.length === 0) ?
+                    ""
+                    : <Link to={"/profile/autogen/" + params.id} className="link-success link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">🤖 Generate New Cards 🤖</Link>}
             </p>
         </div>
     );

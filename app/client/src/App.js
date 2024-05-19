@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -11,6 +11,7 @@ import PrivSet from './pages/profile/PrivSet.js'
 import PubSet from './pages/profile/PubSet.js'
 import NewCardSet from './pages/profile/NewCardSet';
 import NewCard from './pages/profile/NewCard.js'
+import NewCardAuto from './pages/profile/NewCardAuto.js';
 import Logout from './pages/profile/Logout'
 import EditCardSet from './pages/profile/EditCardSet.js';
 import EditCard from './pages/profile/EditCard.js';
@@ -42,9 +43,10 @@ function App() {
             <Route path="/profile/pub_lib" element={<PublicLib />} />
             <Route path="/profile/pub_lib/:id/" element={<PubSet />} />
             <Route path="/profile/new" element={<NewCardSet />} />
-            <Route path="/profile/new/:id" element={<NewCard />} />
+            <Route path="/profile/new/:id/" element={<NewCard />} />
             <Route path="/profile/edit/:id" element={<EditCardSet />} />
             <Route path="/profile/edit/:id/:id2" element={<EditCard />} />
+            <Route path="/profile/autogen/:id" element={<NewCardAuto />} />
             <Route path="/logout" element={<Logout />} />
           </Route>
         </Routes>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Link, NavLink, useOutlet, Navigate } from "react-router-dom";
+import { Link, NavLink, useOutlet, Navigate } from "react-router-dom";
 import { useAuth } from "../hook/useAuth";
 
 
