@@ -120,49 +120,69 @@ async function quesAnsGenerator(file, apiKey, fileType) {
 
         let getAns;
         let isValid = false;
+        const quesAnsList = [];
         while (!isValid) {
             console.log("Attempt to get corresponding answers");
             getAns = await retrievalChain.invoke({
                 input: getQuestions.content,
             });
-            if (getQuestions.length === getAns.length) isValid = true;
+            console.log(lineSeparator);
+            // if (getQuestions.length === getAns.length) isValid = true;
+            let quesArr = getQuestions.content.split('\n');
+            quesArr = quesArr.map(line => line.replace(/^\d+\.\s/, ''));
+            let ansArr = getAns.answer.split('\n');
+            ansArr = ansArr.map(line => line.replace(/^\d+\.\s/, ''));
+
+            if (quesArr.length === ansArr.length) {
+                for (let i = 0; i < ansArr.length; i++) {
+                    quesAnsList.push([quesArr[i], ansArr[i]]);
+                }
+                console.log("Final QA arraylist:");
+                console.log(quesAnsList);
+                console.log(quesAnsList.length);
+                console.log("Success! Return list of QA...");
+                console.log(lineSeparator);
+                return quesAnsList;
+            }
+            console.log("Failed to get equal set of questions and answers. Retrying...");
         }
+
         // console.log("Corresponding answers:");
         // console.log(getAns);
         // console.log(lineSeparator);
 
 
-        let quesArr = getQuestions.content.split('\n');
-        console.log("Question array:");
-        console.log(lineSeparator);
-        quesArr = quesArr.map(line => line.replace(/^\d+\.\s/, ''));
+        // let quesArr = getQuestions.content.split('\n');
+        // console.log("Question array:");
+        // console.log(lineSeparator);
+        // quesArr = quesArr.map(line => line.replace(/^\d+\.\s/, ''));
         // console.log("After regex:");
-        console.log(quesArr);
-        console.log(lineSeparator);
-        let ansArr = getAns.answer.split('\n');
-        console.log("Answer array:");
-        console.log(ansArr);
-        console.log(lineSeparator);
+        // console.log(quesArr);
+        // console.log(lineSeparator);
+        // let ansArr = getAns.answer.split('\n');
+        // console.log("Answer array:");
+        // console.log(ansArr);
+        // console.log(lineSeparator);
 
-        ansArr = ansArr.map(line => line.replace(/^\d+\.\s/, ''));
-        console.log("After regex:");
-        console.log(lineSeparator);
-        console.log(ansArr);
-        console.log(lineSeparator);
-        console.log(ansArr);
-        console.log(lineSeparator);
+        // ansArr = ansArr.map(line => line.replace(/^\d+\.\s/, ''));
+        // console.log("After regex:");
+        // console.log(lineSeparator);
+        // console.log(ansArr);
+        // console.log(lineSeparator);
+        // console.log(ansArr);
+        // console.log(lineSeparator);
 
-        const quesAnsList = [];
-        for (let i = 0; i < ansArr.length; i++) {
-            quesAnsList.push([quesArr[i], ansArr[i]]);
-        }
-        console.log("Final QA arraylist:");
-        console.log(quesAnsList);
-        console.log(quesAnsList.length);
-        console.log("Success! Return list of QA...");
-        console.log(lineSeparator);
+        // const quesAnsList = [];
+        // for (let i = 0; i < ansArr.length; i++) {
+        //     quesAnsList.push([quesArr[i], ansArr[i]]);
+        // }
+        // console.log("Final QA arraylist:");
+        // console.log(quesAnsList);
+        // console.log(quesAnsList.length);
+        // console.log("Success! Return list of QA...");
+        // console.log(lineSeparator);
 
-        return quesAnsList;
+        // return quesAnsList;
     } catch (err) {
         console.error("Error - " + err);
         // console.send("Error - " + err);

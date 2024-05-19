@@ -29,6 +29,8 @@ const NewCardAuto = () => {
         formData.append('file', file);
         formData.append('apiKey', apiKey);
 
+        console.log("Attempting to upload file and API key to generate cards. Awaiting result...");
+        console.log("(May take a few minutes.)");
         try {
             const response = await axios.post("/profile/lib/" + params.id + "/autogen", formData, {
                 headers: {
@@ -36,8 +38,7 @@ const NewCardAuto = () => {
                     token: localStorage.token,
                 },
             });
-            console.log("Upload file + API key to generate cards. Awaiting result...");
-            console.log("(May take a few minutes.)");
+
             console.log("Response data", response);
 
             // if (response.status === 200) {
@@ -52,7 +53,10 @@ const NewCardAuto = () => {
             //     event.target.reset();
             //     setError(true);
             // }
-            console.log("Result (last line): ", response.data);
+            setSuccess(true);
+            event.target.reset();
+            console.log("Cards generated! Redirecting back to the card set.");
+            navigate('/profile/lib/' + params.id);
         } catch (error) {
             setError(true);
             console.error("Error: ", error);
@@ -64,7 +68,7 @@ const NewCardAuto = () => {
             <div className="container-md p-1 my-3 overflow-hidden" >
                 <h5 className="text-center">🖥️ Autogen Cards with OpenAI 🖥️</h5>
                 <p className="text-center">Generate questions & answers from your documents</p>
-                {error && <ErrorAlert details={"Please check file or API key."} />}
+                {error && <ErrorAlert details={"Please check file type or verify API key."} />}
 
                 <form onSubmit={handleSubmit}>
                     <p>
