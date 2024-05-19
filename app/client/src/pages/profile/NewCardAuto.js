@@ -30,29 +30,31 @@ const NewCardAuto = () => {
         formData.append('apiKey', apiKey);
 
         try {
-            console.log("Upload file + API key to generate cards. Awaiting result...");
-            console.log("(May take a few minutes.)");
-            const response = await axios.post("/profile/lib/" + params.id +"/autogen", formData, {
+            const response = await axios.post("/profile/lib/" + params.id + "/autogen", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     token: localStorage.token,
                 },
             });
+            console.log("Upload file + API key to generate cards. Awaiting result...");
+            console.log("(May take a few minutes.)");
             console.log("Response data", response);
-           
-            if (response.status === 200) {
-                // setSuccess = true;
-                event.target.reset();
-                console.log("Response: ", response.data);
-                console.log("Card(s) generated! Redirecting to the card set.");
-                navigate('/profile/lib/' + params.id);
-            } else {
-                console.log("Response: ", response.data);
-                event.target.reset();
-                setError(true);
-            }
-            console.log("Final Result: ", response.data);
+
+            // if (response.status === 200) {
+            //     // setSuccess = true;
+            //     event.target.reset();
+            //     console.log("Response: ", response.data);
+            //     console.log("Card(s) generated! Redirecting to the card set.");
+            //     navigate('/profile/lib/' + params.id);
+            // }
+            // } else {
+            //     console.log("Response: ", response.data);
+            //     event.target.reset();
+            //     setError(true);
+            // }
+            console.log("Result (last line): ", response.data);
         } catch (error) {
+            setError(true);
             console.error("Error: ", error);
         }
     };
@@ -61,17 +63,21 @@ const NewCardAuto = () => {
         <>
             <div className="container-md p-1 my-3 overflow-hidden" >
                 <h5 className="text-center">🖥️ Autogen Cards with OpenAI 🖥️</h5>
-                <p className="text-center">(Generate questions & answers from your documents.)</p>
-                {error && <ErrorAlert details={"Failed - Please check file or API key."} />}
+                <p className="text-center">Generate questions & answers from your documents</p>
+                {error && <ErrorAlert details={"Please check file or API key."} />}
 
                 <form onSubmit={handleSubmit}>
-                    <input type="file" onChange={handleFileUpdate} />
-                    <input
-                        type="text"
-                        value={apiKey}
-                        onChange={handleAPIKeyUpdate}
-                        placeholder="Enter OpenAI API key"
-                    />
+                    <p>
+                        <input type="file" onChange={handleFileUpdate} />
+                    </p>
+                    <p>
+                        <input
+                            type="text"
+                            value={apiKey}
+                            onChange={handleAPIKeyUpdate}
+                            placeholder="Enter OpenAI API key"
+                        />
+                    </p>
                     <button type="submit">📱 Autogen Cards 📱</button>
                 </form>
             </div>

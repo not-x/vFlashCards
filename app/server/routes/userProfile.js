@@ -271,8 +271,8 @@ router.post("/lib/:vfcSetID/autogen", auth, upload.single('file'), async (req, r
         res.send(result);
     } catch (error) {
         console.error(error);
-        res.send(error);
-    }
+        // res.send(error);
+        res.status(500).json({ message: 'Error uploading file and API key' });    }
 });
 
 // Update a vfc_set's title and access type(private/public)
