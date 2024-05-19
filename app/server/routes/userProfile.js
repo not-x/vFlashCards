@@ -223,7 +223,8 @@ router.post("/lib/:vfcSetID/autogen", auth, upload.single('file'), async (req, r
         const verifyPermission = await pool.query(
             "SELECT * FROM vfc_set WHERE vfc_set_id = $1 AND vfc_user_id = $2", [vfcSetID, userID]
         );
-        console.log(verifyPermission.rows);
+        console.log("verifying permission:");
+        console.log(verifyPermission.rows); 
         if (verifyPermission.rows.length === 0) throw "403 - Forbidden"
 
         // API key + file verification:
@@ -253,7 +254,7 @@ router.post("/lib/:vfcSetID/autogen", auth, upload.single('file'), async (req, r
         // 3. Save results.
         // 4. Iterate through the result and save them to the vfc set.
         const cardList = await autoGenCard(file, apiKey, fileType);
-        console.log(cardList);
+        // console.log(cardList);
         let createNewCard = "";
         for (let i = 0; i < cardList.length; i++) {
             createNewCard = await pool.query(
@@ -265,7 +266,7 @@ router.post("/lib/:vfcSetID/autogen", auth, upload.single('file'), async (req, r
 
 
         // const result = "Autogen route status: Ok";
-        const result = "New cards have been generated.";
+        const result = cardList.length + " new cards have been generated.";
         console.log(result);
         res.send(result);
     } catch (error) {

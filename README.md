@@ -1,12 +1,13 @@
-# vFlashCards
+# vFlashCards with GenAI
 
 ## Description
 
-vFlashCards is built for students on the go. The project aims to create a convenient and accessible learning tool. The full stack application will feature:
+vFlashCards is built for students on the go. The project aims to create a convenient and accessible learning tool. The full stack application features:
 
-- The option to create sets of virtual flash cards.
-- Browse your personal library of flash cards.
-- Brower publicly shared flash cards with fellow vFlashCards community.
+- The option to group and create virtual flash cards.
+- Auto-generate material from document (PDF, Word, Powerpoint, Text) with OpenAI. (Requires OpenAI API key.)
+- Catalog of personal library of flash cards.
+- Publicly shared flash cards with fellow vFlashCards community.
 
 * * *
 
