@@ -40,6 +40,7 @@ function PrivateLib() {
         <div className="container-fluid text-center">
             <div className="row justify-content-center">
                 <h5>{cardSets.length === 0 ? "Library is currently empty.": "" }</h5>
+                {error && <ErrorAlert details={"Unable to fetch vFlashCards sets"} />}
                 {cardSets.map((entryData) => (
                     // console.log("entryData: " + entryData.vfc_set_id),
                     <CardSet {...entryData} key={entryData.vfc_set_id} />
