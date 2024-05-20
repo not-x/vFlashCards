@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate, Routes, Route } from "react-router-dom";
 import ErrorAlert from "../../components/ErrorAlert";
 import { useParams } from "react-router-dom";
-import { useRef } from 'react';
 // import NewCard from "./NewCard";
 
 function NewCardSet() {
@@ -20,7 +19,6 @@ function NewCardSet() {
     const [error, setError] = useState(false);
     const [cardInfo, setCardInfo] = useState()
     let params = useParams();
-    const formRef = useRef();
 
     const onChange = e => {
         setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -30,7 +28,7 @@ function NewCardSet() {
     const onSubmitForm = async e => {
         e.preventDefault();
         try {
-            const body = { title, access };
+            const body = { title, access};
             // console.log("body: " + JSON.stringify(body))
             const response = await fetch("/profile/new_set", {
                 method: "POST",
@@ -66,47 +64,9 @@ function NewCardSet() {
                 setSuccess(true);
                 navigate('/profile/new/' + (cardSet.vfc_set_id));
                 // navigate('/profile/new/' + params.id);
-                // } else if (response.ok) {
-                //     setSuccess(true);
-                //     navigate('/profile/autogen' + (cardSet.vfc_set_id));
-            } else {
-                setError(true);
-            }
-        } catch (error) {
-            console.error("Server error while creating a new flashcard set", error);
-            setError(true);
-        }
-    };
-
-    const onSubmitForm2 = async e => {
-        e.preventDefault();
-        try {
-            const body = { title, access };
-            // console.log("body: " + JSON.stringify(body))
-            const response = await fetch("/profile/new_set", {
-                method: "POST",
-                // credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                    token: localStorage.token,
-                },
-                // headers: { token: localStorage.token },
-                // body: JSON.stringify({
-                //     content: body,
-                // }),
-                body: JSON.stringify(body)
-            });
-
-            // console.log("response ok? (response.ok): " + response.ok)
-            // console.log("response type: " + typeof(response));
-            const cardSet = await response.json()
-            // console.log("cardsetID: " + cardSet.vfc_set_id)
-            // console.log("cardSet: " + JSON.stringify(cardSet))
-            setCardInfo(cardSet);
-
-            if (response.ok) {
-                setSuccess(true);
-                navigate('/profile/autogen/' + (cardSet.vfc_set_id));
+            // } else if (response.ok) {
+            //     setSuccess(true);
+            //     navigate('/profile/autogen' + (cardSet.vfc_set_id));
             } else {
                 setError(true);
             }
@@ -124,7 +84,7 @@ function NewCardSet() {
                 <h5 className="text-center">Create New Set of vFlashCards</h5>
                 <div className="row gx-5">
                     {error && <ErrorAlert details={"Failed to save content"} />}
-                    <form ref={formRef}>
+                    <form onSubmit={onSubmitForm}>
                         <div className="input-group mb-2">
                             <input
                                 type="text"
@@ -150,14 +110,9 @@ function NewCardSet() {
                                 Public access (viewable by everyone)
                             </label>
                         </div>
-                        <div class="d-grid gap-2">
-                            <button type="submit" className="btn btn-primary center" onClick={onSubmitForm}>
-                                Save & Create New Cards
-                            </button>
-                            <button type="submit" className="btn btn-warning center" onClick={onSubmitForm2}>
-                                Save & AutoGen Cards with OpenAI
-                            </button>
-                        </div>
+                        <button type="submit" className="btn btn-primary center">
+                            Save & Create New Cards
+                        </button>
                     </form>
                 </div >
             </div >
