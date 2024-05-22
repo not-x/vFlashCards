@@ -35,9 +35,9 @@ async function quesAnsGenerator(file, apiKey, fileType) {
             temperature: 0.0,
         });
 
-        // console.log("file: ");
-        // console.log(file);
-        // console.log(lineSeparator);
+        console.log("file: ");
+        console.log(file);
+        console.log(lineSeparator);
         const temp = file.path;
         // console.log("temp file name: ");
         // console.log(temp);
@@ -71,7 +71,7 @@ async function quesAnsGenerator(file, apiKey, fileType) {
         // console.log("Split docs: ", splitDocs);
 
         const embeddings = new OpenAIEmbeddings({ openAIApiKey: apiKey});
-        console.log("embedding: ", embeddings);
+        // console.log("embedding: ", embeddings);
         const vectorstores = await MemoryVectorStore.fromDocuments(
             splitDocs,
             embeddings
@@ -92,7 +92,7 @@ async function quesAnsGenerator(file, apiKey, fileType) {
 
         const getDetail = "You are a helpful AI assistant. List up to 100 detail from the document and do not leave out anything."
 
-        console.log("getDetail: ", getDetail);
+        // console.log("getDetail: ", getDetail);
         const retriever = vectorstores.asRetriever();
         const retrievalChain = await createRetrievalChain({
             combineDocsChain: documentChain,
