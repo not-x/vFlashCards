@@ -26,7 +26,9 @@ const lineSeparator = "------------------------------------";
 async function quesAnsGenerator(file, apiKey, fileType) {
     console.log(lineSeparator);
     console.log("QA Autogen()");
+    // console.log("apikey: " , apiKey);
     console.log(lineSeparator);
+    
     try {
         const chatModel = new ChatOpenAI({
             openAIApiKey: apiKey,
@@ -37,9 +39,9 @@ async function quesAnsGenerator(file, apiKey, fileType) {
         // console.log(file);
         // console.log(lineSeparator);
         const temp = file.path;
-        console.log("temp file name: ");
-        console.log(temp);
-        console.log(lineSeparator);
+        // console.log("temp file name: ");
+        // console.log(temp);
+        // console.log(lineSeparator);
         let loader;
 
         if (fileType === "txt") {
@@ -52,30 +54,24 @@ async function quesAnsGenerator(file, apiKey, fileType) {
             loader = new PPTXLoader(temp);
         }
 
-        // if (fileType === "txt") {
-        //     loader = new TextLoader(file);
-        // } else if (fileType === "pdf") {
-        //     loader = new PDFLoader(file);
-        // } else if (fileType === "ms-word") {
-        //     loader = new DocxLoader(file);
-        // } else if (fileType === "ms-ppt") {
-        //     loader = new PPTXLoader(file);
-        // }
-
         // console.log("loader:");
         // console.log(loader);
         // console.log(typeof (loader));
         // console.log(lineSeparator);
 
         const docs = await loader.load();
-        // console.log("docs:");
+        // console.log(lineSeparator);
+        // console.log("docs: ");
         // console.log(docs);
         // console.log(lineSeparator);
 
         const splitter = new RecursiveCharacterTextSplitter();
         const splitDocs = await splitter.splitDocuments(docs);
 
-        const embeddings = new OpenAIEmbeddings();
+        // console.log("Split docs: ", splitDocs);
+
+        const embeddings = new OpenAIEmbeddings({ openAIApiKey: apiKey});
+        console.log("embedding: ", embeddings);
         const vectorstores = await MemoryVectorStore.fromDocuments(
             splitDocs,
             embeddings
@@ -96,6 +92,7 @@ async function quesAnsGenerator(file, apiKey, fileType) {
 
         const getDetail = "You are a helpful AI assistant. List up to 100 detail from the document and do not leave out anything."
 
+        console.log("getDetail: ", getDetail);
         const retriever = vectorstores.asRetriever();
         const retrievalChain = await createRetrievalChain({
             combineDocsChain: documentChain,
